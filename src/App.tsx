@@ -27,31 +27,25 @@ function App() {
         } else {
             setX1ButtonDisabled(true);
         }
-    }, [carrerGoalsArr]);
 
-    useEffect(() => {
         if (doubleGoalsArr.length < 2) {
             setX2ButtonDisabled(false);
         } else {
             setX2ButtonDisabled(true);
         }
-    }, [doubleGoalsArr]);
 
-    useEffect(() => {
         if (tripleGoalsArr.length < 2) {
             setX3ButtonDisabled(false);
         } else {
             setX3ButtonDisabled(true);
         }
-    }, [tripleGoalsArr]);
 
-    useEffect(() => {
         if (quadrupleGoalsArr.length < 1) {
             setX4ButtonDisabled(false);
         } else {
             setX4ButtonDisabled(true);
         }
-    }, [quadrupleGoalsArr]);
+    }, [carrerGoalsArr, doubleGoalsArr, tripleGoalsArr, quadrupleGoalsArr]);
 
     useEffect(() => {
         if (pickedPlayersArr.length >= 8) {
@@ -61,8 +55,6 @@ function App() {
             });
             setResult(acc);
         }
-
-        console.log(result)
     }, [pickedPlayersArr])
 
     return (
@@ -144,6 +136,7 @@ function App() {
                 <div className="times-one">X4: {quadrupleGoalsArr.length > 0 ? `${quadrupleGoalsArr[0].name} - ${quadrupleGoalsArr[0].goals}` : ''}</div>
             </div>
             <p>{result}</p>
+            <p>{result >= 9000 ? 'You Win!' : 'You Lose!'}</p>
         </main>
     )
 }
