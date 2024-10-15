@@ -8,13 +8,17 @@ function App() {
     const [X1ButtonDisabled, setX1ButtonDisabled] = useState<boolean>(false);
     const [carrerGoalsArr, setCarrerGoalsArr] = useState<Player[]>([]);
     const [X2ButtonDisabled, setX2ButtonDisabled] = useState<boolean>(false);
+    const [doubleGoalsArr, setDoubleGoalsArr] = useState<Player[]>([]);
     const [X3ButtonDisabled, setX3ButtonDisabled] = useState<boolean>(false);
+    const [tripleGoalsArr, setTripleGoalsArr] = useState<Player[]>([]);
     const [X4ButtonDisabled, setX4ButtonDisabled] = useState<boolean>(false);
+    const [quadrupleGoalsArr, setQuadrupleGoalsArr] = useState<Player[]>([]);
     const [timeToSet, setTimeToSet] = useState<boolean>(false);
 
     useEffect(() => {
         setStartButtonDisabled(timeToSet);
     }, [timeToSet]);
+
     useEffect(() => {
         if (carrerGoalsArr.length < 3) {
             setX1ButtonDisabled(false);
@@ -22,6 +26,30 @@ function App() {
             setX1ButtonDisabled(true);
         }
     }, [carrerGoalsArr]);
+
+    useEffect(() => {
+        if (doubleGoalsArr.length < 2) {
+            setX2ButtonDisabled(false);
+        } else {
+            setX2ButtonDisabled(true);
+        }
+    }, [doubleGoalsArr]);
+
+    useEffect(() => {
+        if (tripleGoalsArr.length < 2) {
+            setX3ButtonDisabled(false);
+        } else {
+            setX3ButtonDisabled(true);
+        }
+    }, [tripleGoalsArr]);
+
+    useEffect(() => {
+        if (quadrupleGoalsArr.length < 1) {
+            setX4ButtonDisabled(false);
+        } else {
+            setX4ButtonDisabled(true);
+        }
+    }, [quadrupleGoalsArr]);
 
     return (
         <main>
@@ -38,15 +66,50 @@ function App() {
                             const auxArr = [...prev, currentPlayer];
                             return auxArr;
                         });
-                        console.log(carrerGoalsArr.length)
                         setTimeToSet(false);
                     }
                 }}>X1</button>
+                <button disabled={X2ButtonDisabled} onClick={() => {
+                    if (timeToSet && doubleGoalsArr.length < 2) {
+                        setDoubleGoalsArr(prev => {
+                            const auxArr = [...prev, currentPlayer];
+                            auxArr[auxArr.length - 1] = { ...auxArr[auxArr.length - 1], goals: auxArr[auxArr.length - 1].goals * 2 }
+                            return auxArr;
+                        });
+                        setTimeToSet(false);
+                    }
+                }}>X2</button>
+                <button disabled={X3ButtonDisabled} onClick={() => {
+                    if (timeToSet && tripleGoalsArr.length < 2) {
+                        setTripleGoalsArr(prev => {
+                            const auxArr = [...prev, currentPlayer];
+                            auxArr[auxArr.length - 1] = { ...auxArr[auxArr.length - 1], goals: auxArr[auxArr.length - 1].goals * 3 }
+                            return auxArr;
+                        });
+                        setTimeToSet(false);
+                    }
+                }}>X3</button>
+                <button disabled={X4ButtonDisabled} onClick={() => {
+                    if (timeToSet && quadrupleGoalsArr.length < 1) {
+                        setQuadrupleGoalsArr(prev => {
+                            const auxArr = [...prev, currentPlayer];
+                            auxArr[auxArr.length - 1] = { ...auxArr[auxArr.length - 1], goals: auxArr[auxArr.length - 1].goals * 4 }
+                            return auxArr;
+                        });
+                        console.log(quadrupleGoalsArr)
+                        setTimeToSet(false);
+                    }
+                }}>X4</button>
             </div>
             <div className="slots">
                 <div className="times-one">X1: {carrerGoalsArr.length > 0 ? `${carrerGoalsArr[0].name} - ${carrerGoalsArr[0].goals}` : ''}</div>
                 <div className="times-one">X1: {carrerGoalsArr.length > 1 ? `${carrerGoalsArr[1].name} - ${carrerGoalsArr[1].goals}` : ''}</div>
                 <div className="times-one">X1: {carrerGoalsArr.length > 2 ? `${carrerGoalsArr[2].name} - ${carrerGoalsArr[2].goals}` : ''}</div>
+                <div className="times-one">X2: {doubleGoalsArr.length > 0 ? `${doubleGoalsArr[0].name} - ${doubleGoalsArr[0].goals}` : ''}</div>
+                <div className="times-one">X2: {doubleGoalsArr.length > 1 ? `${doubleGoalsArr[1].name} - ${doubleGoalsArr[1].goals}` : ''}</div>
+                <div className="times-one">X3: {tripleGoalsArr.length > 0 ? `${tripleGoalsArr[0].name} - ${tripleGoalsArr[0].goals}` : ''}</div>
+                <div className="times-one">X3: {tripleGoalsArr.length > 1 ? `${tripleGoalsArr[1].name} - ${tripleGoalsArr[1].goals}` : ''}</div>
+                <div className="times-one">X4: {quadrupleGoalsArr.length > 0 ? `${quadrupleGoalsArr[0].name} - ${quadrupleGoalsArr[0].goals}` : ''}</div>
             </div>
         </main>
     )
