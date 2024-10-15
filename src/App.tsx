@@ -3,6 +3,7 @@ import { useEffect, useState } from "react"
 function App() {
     type Player = { name: string, goals: number };
     const playersArray: Array<Player> = [{ name: 'CR7', goals: 906 }, { name: 'Messi', goals: 896 }, { name: 'Allan', goals: 1 }]
+    const [pickedPlayersArr, setPickedPlayersArr] = useState<Player[]>([]);
     const [currentPlayer, setCurrentPlayer] = useState<Player>({} as Player);
     const [startButtonDisabled, setStartButtonDisabled] = useState<boolean>(false);
     const [X1ButtonDisabled, setX1ButtonDisabled] = useState<boolean>(false);
@@ -66,12 +67,21 @@ function App() {
                             const auxArr = [...prev, currentPlayer];
                             return auxArr;
                         });
+                        setPickedPlayersArr(prev => {
+                            const auxArr = [...prev, currentPlayer];
+                            return auxArr;
+                        });
                         setTimeToSet(false);
                     }
                 }}>X1</button>
                 <button disabled={X2ButtonDisabled} onClick={() => {
                     if (timeToSet && doubleGoalsArr.length < 2) {
                         setDoubleGoalsArr(prev => {
+                            const auxArr = [...prev, currentPlayer];
+                            auxArr[auxArr.length - 1] = { ...auxArr[auxArr.length - 1], goals: auxArr[auxArr.length - 1].goals * 2 }
+                            return auxArr;
+                        });
+                        setPickedPlayersArr(prev => {
                             const auxArr = [...prev, currentPlayer];
                             auxArr[auxArr.length - 1] = { ...auxArr[auxArr.length - 1], goals: auxArr[auxArr.length - 1].goals * 2 }
                             return auxArr;
@@ -86,6 +96,11 @@ function App() {
                             auxArr[auxArr.length - 1] = { ...auxArr[auxArr.length - 1], goals: auxArr[auxArr.length - 1].goals * 3 }
                             return auxArr;
                         });
+                        setPickedPlayersArr(prev => {
+                            const auxArr = [...prev, currentPlayer];
+                            auxArr[auxArr.length - 1] = { ...auxArr[auxArr.length - 1], goals: auxArr[auxArr.length - 1].goals * 3 }
+                            return auxArr;
+                        });
                         setTimeToSet(false);
                     }
                 }}>X3</button>
@@ -96,7 +111,11 @@ function App() {
                             auxArr[auxArr.length - 1] = { ...auxArr[auxArr.length - 1], goals: auxArr[auxArr.length - 1].goals * 4 }
                             return auxArr;
                         });
-                        console.log(quadrupleGoalsArr)
+                        setPickedPlayersArr(prev => {
+                            const auxArr = [...prev, currentPlayer];
+                            auxArr[auxArr.length - 1] = { ...auxArr[auxArr.length - 1], goals: auxArr[auxArr.length - 1].goals * 4 }
+                            return auxArr;
+                        });
                         setTimeToSet(false);
                     }
                 }}>X4</button>
@@ -115,4 +134,4 @@ function App() {
     )
 }
 
-export default App
+export default App;
