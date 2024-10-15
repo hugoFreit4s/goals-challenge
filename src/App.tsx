@@ -15,6 +15,7 @@ function App() {
     const [X4ButtonDisabled, setX4ButtonDisabled] = useState<boolean>(false);
     const [quadrupleGoalsArr, setQuadrupleGoalsArr] = useState<Player[]>([]);
     const [timeToSet, setTimeToSet] = useState<boolean>(false);
+    const [result, setResult] = useState<number>(0);
 
     useEffect(() => {
         setStartButtonDisabled(timeToSet);
@@ -52,6 +53,18 @@ function App() {
         }
     }, [quadrupleGoalsArr]);
 
+    useEffect(() => {
+        if (pickedPlayersArr.length >= 8) {
+            let acc = 0
+            pickedPlayersArr.forEach(player => {
+                acc += player.goals;
+            });
+            setResult(acc);
+        }
+
+        console.log(result)
+    }, [pickedPlayersArr])
+
     return (
         <main>
             <button className="button" disabled={startButtonDisabled} onClick={() => {
@@ -78,12 +91,12 @@ function App() {
                     if (timeToSet && doubleGoalsArr.length < 2) {
                         setDoubleGoalsArr(prev => {
                             const auxArr = [...prev, currentPlayer];
-                            auxArr[auxArr.length - 1] = { ...auxArr[auxArr.length - 1], goals: auxArr[auxArr.length - 1].goals * 2 }
+                            auxArr[auxArr.length - 1] = { ...auxArr[auxArr.length - 1], goals: auxArr[auxArr.length - 1].goals * 2 };
                             return auxArr;
                         });
                         setPickedPlayersArr(prev => {
                             const auxArr = [...prev, currentPlayer];
-                            auxArr[auxArr.length - 1] = { ...auxArr[auxArr.length - 1], goals: auxArr[auxArr.length - 1].goals * 2 }
+                            auxArr[auxArr.length - 1] = { ...auxArr[auxArr.length - 1], goals: auxArr[auxArr.length - 1].goals * 2 };
                             return auxArr;
                         });
                         setTimeToSet(false);
@@ -93,12 +106,12 @@ function App() {
                     if (timeToSet && tripleGoalsArr.length < 2) {
                         setTripleGoalsArr(prev => {
                             const auxArr = [...prev, currentPlayer];
-                            auxArr[auxArr.length - 1] = { ...auxArr[auxArr.length - 1], goals: auxArr[auxArr.length - 1].goals * 3 }
+                            auxArr[auxArr.length - 1] = { ...auxArr[auxArr.length - 1], goals: auxArr[auxArr.length - 1].goals * 3 };
                             return auxArr;
                         });
                         setPickedPlayersArr(prev => {
                             const auxArr = [...prev, currentPlayer];
-                            auxArr[auxArr.length - 1] = { ...auxArr[auxArr.length - 1], goals: auxArr[auxArr.length - 1].goals * 3 }
+                            auxArr[auxArr.length - 1] = { ...auxArr[auxArr.length - 1], goals: auxArr[auxArr.length - 1].goals * 3 };
                             return auxArr;
                         });
                         setTimeToSet(false);
@@ -108,12 +121,12 @@ function App() {
                     if (timeToSet && quadrupleGoalsArr.length < 1) {
                         setQuadrupleGoalsArr(prev => {
                             const auxArr = [...prev, currentPlayer];
-                            auxArr[auxArr.length - 1] = { ...auxArr[auxArr.length - 1], goals: auxArr[auxArr.length - 1].goals * 4 }
+                            auxArr[auxArr.length - 1] = { ...auxArr[auxArr.length - 1], goals: auxArr[auxArr.length - 1].goals * 4 };
                             return auxArr;
                         });
                         setPickedPlayersArr(prev => {
                             const auxArr = [...prev, currentPlayer];
-                            auxArr[auxArr.length - 1] = { ...auxArr[auxArr.length - 1], goals: auxArr[auxArr.length - 1].goals * 4 }
+                            auxArr[auxArr.length - 1] = { ...auxArr[auxArr.length - 1], goals: auxArr[auxArr.length - 1].goals * 4 };
                             return auxArr;
                         });
                         setTimeToSet(false);
@@ -130,6 +143,7 @@ function App() {
                 <div className="times-one">X3: {tripleGoalsArr.length > 1 ? `${tripleGoalsArr[1].name} - ${tripleGoalsArr[1].goals}` : ''}</div>
                 <div className="times-one">X4: {quadrupleGoalsArr.length > 0 ? `${quadrupleGoalsArr[0].name} - ${quadrupleGoalsArr[0].goals}` : ''}</div>
             </div>
+            <p>{result}</p>
         </main>
     )
 }
