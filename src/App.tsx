@@ -137,11 +137,24 @@ function App() {
 
     return (
         <main>
-            <button className="button" disabled={timeToSet || pickedPlayersArr.length >= 9} onClick={() => {
-                const randomIndex = Math.floor(Math.random() * playersArray.length);
-                setCurrentPlayer(playersArray[randomIndex]);
-                setTimeToSet(true);
-            }}>Start</button>
+            <button className="button" disabled={timeToSet} onClick={() => {
+                if (pickedPlayersArr.length < 9) {
+                    const randomIndex = Math.floor(Math.random() * playersArray.length);
+                    setCurrentPlayer(playersArray[randomIndex]);
+                    setTimeToSet(true);
+                    console.log(pickedPlayersArr.length)
+                } else if (pickedPlayersArr.length === 9) {
+                    setPickedPlayersArr([]);
+                    setX1(0);
+                    setX2(0);
+                    setX3(0);
+                    setX4(0);
+                    setResult(0);
+                    const randomIndex = Math.floor(Math.random() * playersArray.length);
+                    setCurrentPlayer(playersArray[randomIndex]);
+                    setTimeToSet(true);
+                }
+            }}>{pickedPlayersArr.length >= 9 ? 'Play again!' : 'Start game!'}</button>
 
             <div className="current_player">{currentPlayer.name}</div>
             <div className="options">
