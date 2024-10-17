@@ -9,6 +9,7 @@ function App() {
         { id: crypto.randomUUID(), name: 'Pelé', goals: 767 },
         { id: crypto.randomUUID(), name: 'Romário', goals: 772 },
         { id: crypto.randomUUID(), name: 'Ferenc Puskás', goals: 746 },
+        { id: crypto.randomUUID(), name: 'Ronaldo Nazário', goals: 414 },
         { id: crypto.randomUUID(), name: 'Josef Bican', goals: 805 },
         { id: crypto.randomUUID(), name: 'Gerd Müller', goals: 735 },
         { id: crypto.randomUUID(), name: 'Robert Lewandowski', goals: 598 },
@@ -30,6 +31,7 @@ function App() {
         { id: crypto.randomUUID(), name: 'Samuel Eto\'o', goals: 426 },
         { id: crypto.randomUUID(), name: 'Wayne Rooney', goals: 366 },
         { id: crypto.randomUUID(), name: 'Roberto Baggio', goals: 318 },
+        { id: crypto.randomUUID(), name: 'Ronaldinho', goals: 299 },
         { id: crypto.randomUUID(), name: 'Paolo Rossi', goals: 134 },
         { id: crypto.randomUUID(), name: 'Marco van Basten', goals: 277 },
         { id: crypto.randomUUID(), name: 'Sándor Kocsis', goals: 558 },
@@ -38,9 +40,11 @@ function App() {
         { id: crypto.randomUUID(), name: 'Romelu Lukaku', goals: 368 },
         { id: crypto.randomUUID(), name: 'Eden Hazard', goals: 185 },
         { id: crypto.randomUUID(), name: 'Angel Di Maria', goals: 126 },
+        { id: crypto.randomUUID(), name: 'Alfredo Di Stefano', goals: 493 },
         { id: crypto.randomUUID(), name: 'Philippe Coutinho', goals: 121 },
         { id: crypto.randomUUID(), name: 'Toni Kroos', goals: 100 },
         { id: crypto.randomUUID(), name: 'Casemiro', goals: 46 },
+        { id: crypto.randomUUID(), name: 'Riyad Mahrez', goals: 140 },
         { id: crypto.randomUUID(), name: 'Sergio Busquets', goals: 18 },
         { id: crypto.randomUUID(), name: 'N’Golo Kanté', goals: 24 },
         { id: crypto.randomUUID(), name: 'Thomas Müller', goals: 277 },
@@ -58,6 +62,7 @@ function App() {
         { id: crypto.randomUUID(), name: 'Virgil van Dijk', goals: 50 },
         { id: crypto.randomUUID(), name: 'Raphaël Varane', goals: 29 },
         { id: crypto.randomUUID(), name: 'Kalidou Koulibaly', goals: 23 },
+        { id: crypto.randomUUID(), name: 'Douglas Costa', goals: 56 },
         { id: crypto.randomUUID(), name: 'Aymeric Laporte', goals: 25 },
         { id: crypto.randomUUID(), name: 'Ben Chilwell', goals: 14 },
         { id: crypto.randomUUID(), name: 'Reece James', goals: 13 },
@@ -84,15 +89,14 @@ function App() {
         { id: crypto.randomUUID(), name: 'Victor Osimhen', goals: 110 },
         { id: crypto.randomUUID(), name: 'Wilfried Zaha', goals: 70 },
         { id: crypto.randomUUID(), name: 'Jamie Vardy', goals: 190 },
-        { id: crypto.randomUUID(), name: 'James Maddison', goals: 60 },
         { id: crypto.randomUUID(), name: 'Youri Tielemans', goals: 40 },
+        { id: crypto.randomUUID(), name: 'Willian', goals: 123 },
         { id: crypto.randomUUID(), name: 'Harvey Barnes', goals: 40 },
-        { id: crypto.randomUUID(), name: 'James Ward-Prowse', goals: 55 },
         { id: crypto.randomUUID(), name: 'Ollie Watkins', goals: 65 },
         { id: crypto.randomUUID(), name: 'Ivan Toney', goals: 85 },
         { id: crypto.randomUUID(), name: 'Alexander Isak', goals: 75 },
         { id: crypto.randomUUID(), name: 'Martin Ødegaard', goals: 50 },
-        { id: crypto.randomUUID(), name: 'Emile Smith Rowe', goals: 30 },
+        { id: crypto.randomUUID(), name: 'Garrincha', goals: 232 },
         { id: crypto.randomUUID(), name: 'Gabriel Jesus', goals: 120 },
         { id: crypto.randomUUID(), name: 'Richarlison', goals: 85 },
         { id: crypto.randomUUID(), name: 'Dominic Calvert-Lewin', goals: 70 },
@@ -106,6 +110,7 @@ function App() {
         { id: crypto.randomUUID(), name: 'Jorginho', goals: 34 },
         { id: crypto.randomUUID(), name: 'Yves Bissouma', goals: 10 },
         { id: crypto.randomUUID(), name: 'Enzo Fernández', goals: 15 },
+        { id: crypto.randomUUID(), name: 'Zico', goals: 476 },
         { id: crypto.randomUUID(), name: 'Casemiro', goals: 46 },
         { id: crypto.randomUUID(), name: 'Lucas Paquetá', goals: 55 },
         { id: crypto.randomUUID(), name: 'Rodrygo', goals: 45 },
@@ -115,6 +120,7 @@ function App() {
         { id: crypto.randomUUID(), name: 'Aurelien Tchouameni', goals: 20 },
         { id: crypto.randomUUID(), name: 'Pedri', goals: 25 },
         { id: crypto.randomUUID(), name: 'Gavi', goals: 15 },
+        { id: crypto.randomUUID(), name: 'Hulk', goals: 377 },
         { id: crypto.randomUUID(), name: 'Ansu Fati', goals: 35 },
         { id: crypto.randomUUID(), name: 'Ferran Torres', goals: 45 },
         { id: crypto.randomUUID(), name: 'Ousmane Dembélé', goals: 60 },
@@ -129,7 +135,6 @@ function App() {
         { id: crypto.randomUUID(), name: 'Ciro Immobile', goals: 240 },
         { id: crypto.randomUUID(), name: 'Andrea Belotti', goals: 120 },
         { id: crypto.randomUUID(), name: 'Sandro Tonali', goals: 25 },
-        { id: crypto.randomUUID(), name: 'Nicolo Barella', goals: 35 },
         { id: crypto.randomUUID(), name: 'Adrien Rabiot', goals: 40 },
         { id: crypto.randomUUID(), name: 'Manuel Locatelli', goals: 25 },
         { id: crypto.randomUUID(), name: 'Sergej Milinkovic-Savic', goals: 80 },
@@ -137,7 +142,8 @@ function App() {
         { id: crypto.randomUUID(), name: 'Domenico Berardi', goals: 125 },
         { id: crypto.randomUUID(), name: 'Paulo Dybala', goals: 152 },
         { id: crypto.randomUUID(), name: 'Giorgio Chiellini', goals: 37 },
-        { id: crypto.randomUUID(), name: 'Leonardo Bonucci', goals: 42 }
+        { id: crypto.randomUUID(), name: 'Leonardo Bonucci', goals: 42 },
+        { id: crypto.randomUUID(), name: 'Paul Pogba', goals: 87 },
     ];
 
 
@@ -146,15 +152,21 @@ function App() {
     const [currentPlayer, setCurrentPlayer] = useState<Player>({} as Player);
     const [timeToSet, setTimeToSet] = useState<boolean>(false);
     const [result, setResult] = useState<number>(0);
+    const [goal, setGoal] = useState<number>(6000);
     const [X1, setX1] = useState<number>(0);
+    const [maxX1, setMaxX1] = useState<number>(3);
     const [X2, setX2] = useState<number>(0);
+    const [maxX2, setMaxX2] = useState<number>(3);
     const [X3, setX3] = useState<number>(0);
+    const [maxX3, setMaxX3] = useState<number>(2);
     const [X4, setX4] = useState<number>(0);
+    const [maxX4, setMaxX4] = useState<number>(0);
     const [highestScore, setHighestScore] = useState<number>(0);
+    const [maxArrLength, setMaxArrLength] = useState<number>(maxX1 + maxX2 + maxX3 + maxX4);
 
 
     useEffect(() => {
-        if (pickedPlayersArr.length >= 10) {
+        if (pickedPlayersArr.length >= maxArrLength) {
             let acc = 0
             pickedPlayersArr.forEach(player => {
                 acc += player.goals;
@@ -181,12 +193,38 @@ function App() {
 
     return (
         <main>
+            <h1>Goal: {goal}</h1>
+            <select name="goal" id="goal_select" onChange={(e) => {
+                const selectedValue = Number(e.target.value);
+                if (selectedValue === 7000) {
+                    setMaxX1(3);
+                    setMaxX2(3);
+                    setMaxX3(2);
+                    setMaxX4(0);
+                } else if (selectedValue === 9000) {
+                    setMaxX1(3);
+                    setMaxX2(3);
+                    setMaxX3(2);
+                    setMaxX4(1);
+                } else {
+                    setMaxX1(3);
+                    setMaxX2(3);
+                    setMaxX3(2);
+                    setMaxX4(2);
+                }
+                setGoal(selectedValue);
+                setMaxArrLength(maxX1 + maxX2 + maxX3 + maxX4);
+            }}>
+                <option value="6000">6000</option>
+                <option value="9000">9000</option>
+                <option value="11000">11000</option>
+            </select>
             <button className="button" disabled={timeToSet} onClick={() => {
-                if (pickedPlayersArr.length < 10) {
+                if (pickedPlayersArr.length < maxArrLength) {
                     const randomIndex = Math.floor(Math.random() * playersArray.length);
                     setCurrentPlayer(playersArray[randomIndex]);
                     setTimeToSet(true);
-                } else if (pickedPlayersArr.length === 10) {
+                } else if (pickedPlayersArr.length >= maxArrLength) {
                     setPickedPlayersArr([]);
                     setX1(0);
                     setX2(0);
@@ -197,7 +235,7 @@ function App() {
                     setCurrentPlayer(playersArray[randomIndex]);
                     setTimeToSet(true);
                 }
-            }}>{pickedPlayersArr.length >= 10 ? 'Play again!' : 'Start game!'}</button>
+            }}>{pickedPlayersArr.length >= maxArrLength ? 'Play again!' : 'Start game!'}</button>
 
             <div className="current_player">{currentPlayer.name}</div>
             <div className="options">
@@ -214,7 +252,7 @@ function App() {
                     })}
                     multiplier={1}
                     slotVerifier={X1}
-                    maxLength={4}
+                    maxLength={maxX1}
                     setSlotVerifier={() => setX1(X1 + 1)}
                     btnText="X1"
                 />
@@ -231,7 +269,7 @@ function App() {
                     })}
                     multiplier={2}
                     slotVerifier={X2}
-                    maxLength={3}
+                    maxLength={maxX2}
                     setSlotVerifier={() => setX2(X2 + 1)}
                     btnText="X2"
                 />
@@ -248,7 +286,7 @@ function App() {
                     })}
                     multiplier={3}
                     slotVerifier={X3}
-                    maxLength={2}
+                    maxLength={maxX3}
                     setSlotVerifier={() => setX3(X3 + 1)}
                     btnText="X3"
                 />
@@ -265,7 +303,7 @@ function App() {
                     })}
                     multiplier={4}
                     slotVerifier={X4}
-                    maxLength={1}
+                    maxLength={maxX4}
                     setSlotVerifier={() => setX4(X4 + 1)}
                     btnText="X4"
                 />
@@ -275,10 +313,10 @@ function App() {
                     return <p>{`${player.name} - ${player.goals}`}</p>
                 })}
             </div>
-            {pickedPlayersArr.length >= 10 &&
+            {pickedPlayersArr.length >= maxArrLength &&
                 <div className="modal_backdrop">
                     <div className="modal_content">
-                        <p>{result}</p>
+                        <p>Score: {result}</p>
                         <p>{result >= 9000 ? 'You Win!' : 'You Lose!'}</p>
                     </div>
                 </div>}

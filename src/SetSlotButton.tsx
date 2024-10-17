@@ -15,7 +15,7 @@ function SetSlotButton({ setTimeToSet, timeToSet, setPickedPlayersArr, multiplie
             setPickedPlayersArr(multiplier);
             setTimeToSet();
             setSlotVerifier();
-        }}>{btnText}</button>
+        }} style={{display: maxLength <= 0 ? 'none' : 'initial'}}>{btnText}</button>
     )
 }
 
