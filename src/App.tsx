@@ -74,7 +74,8 @@ function App() {
         { id: '66', name: 'Patrice Evra', goals: 15 },
         { id: '67', name: 'Marcelo Vieira', goals: 38 },
         { id: '68', name: 'Dani Alves', goals: 60 },
-        { id: '69', name: 'João Cancelo', goals: 15 }
+        { id: '69', name: 'João Cancelo', goals: 15 },
+        { id: '70', name: 'Johan Cruyff', goals: 368 },
     ];
 
     const [pickedPlayersArr, setPickedPlayersArr] = useState<Player[]>([]);
