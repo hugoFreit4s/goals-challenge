@@ -20,6 +20,8 @@ function PickedPlayersSlot({ pickedPlayers, allPlayers }: PickedPlayerProps) {
                             playerString = <p>{`X3: ${pickedPlayer.name} - ${pickedPlayer.goals}`}</p>;
                         } else if (player.goals * 4 === pickedPlayer.goals) {
                             playerString = <p>{`X4: ${pickedPlayer.name} - ${pickedPlayer.goals}`}</p>;
+                        } else {
+                            playerString = <p>{`X5: ${pickedPlayer.name} - ${pickedPlayer.goals}`}</p>;
                         }
                     }
                 });

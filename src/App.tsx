@@ -87,9 +87,11 @@ function App() {
     const [X2, setX2] = useState<number>(0);
     const [maxX2, setMaxX2] = useState<number>(3);
     const [X3, setX3] = useState<number>(0);
-    const [maxX3, setMaxX3] = useState<number>(2);
+    const [maxX3, setMaxX3] = useState<number>(1);
     const [X4, setX4] = useState<number>(0);
-    const [maxX4, setMaxX4] = useState<number>(0);
+    const [maxX4, setMaxX4] = useState<number>(1);
+    const [X5, setX5] = useState<number>(0);
+    const [maxX5, setMaxX5] = useState<number>(0);
     const [highestScore, setHighestScore] = useState<number>(0);
     const [maxArrLength, setMaxArrLength] = useState<number>(maxX1 + maxX2 + maxX3 + maxX4);
 
@@ -118,11 +120,11 @@ function App() {
             }
             return auxArr;
         });
-    }, [X1, X2, X3, X4]);
+    }, [X1, X2, X3, X4, X5]);
 
     useEffect(() => {
-        setMaxArrLength(Number(maxX1 + maxX2 + maxX3 + maxX4));
-    }, [maxX1, maxX2, maxX3, maxX4]);
+        setMaxArrLength(Number(maxX1 + maxX2 + maxX3 + maxX4 + maxX5));
+    }, [maxX1, maxX2, maxX3, maxX4, maxX5]);
 
     function resetGame() {
         setPickedPlayersArr([]);
@@ -130,14 +132,16 @@ function App() {
         setX2(0);
         setX3(0);
         setX4(0);
+        setX5(0);
         setResult(0);
     }
 
-    function setMaxSlots(x1: number, x2: number, x3: number, x4: number) {
+    function setMaxSlots(x1: number, x2: number, x3: number, x4: number, x5: number) {
         setMaxX1(x1);
         setMaxX2(x2);
         setMaxX3(x3);
         setMaxX4(x4);
+        setMaxX5(x5);
     }
 
     function getRandomNumber(): number {
@@ -151,13 +155,13 @@ function App() {
                 const selectedValue = Number(e.target.value);
                 switch (selectedValue) {
                     case 6000:
-                        setMaxSlots(4, 3, 2, 0);
+                        setMaxSlots(4, 3, 1, 1, 0);
                         break;
                     case 9000:
-                        setMaxSlots(3, 3, 2, 1);
+                        setMaxSlots(3, 3, 2, 1, 0);
                         break;
                     case 11000:
-                        setMaxSlots(3, 3, 2, 2);
+                        setMaxSlots(3, 3, 2, 1, 1);
                         break;
                     default:
                         break;
@@ -245,6 +249,22 @@ function App() {
                     maxLength={maxX4}
                     setSlotVerifier={() => setX4(X4 + 1)}
                     btnText="X4"
+                />
+                <SetSlotButton
+                    getPlayer={() => {
+                        const randomIndex = Math.floor(getRandomNumber());
+                        setCurrentPlayer(playersArray[randomIndex]);
+                    }}
+                    setPickedPlayersArr={(btnText) => setPickedPlayersArr(prev => {
+                        const auxArr = [...prev, currentPlayer];
+                        auxArr[auxArr.length - 1] = { ...auxArr[auxArr.length - 1], goals: auxArr[auxArr.length - 1].goals * Number(btnText.toString().charAt(btnText.toString().length - 1)) };
+                        setX5(X5 + 1);
+                        return auxArr;
+                    })}
+                    slotVerifier={X5}
+                    maxLength={maxX5}
+                    setSlotVerifier={() => setX5(X5 + 1)}
+                    btnText="X5"
                 />
             </div>
             <div className="slots">
