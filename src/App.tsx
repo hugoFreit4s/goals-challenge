@@ -187,9 +187,9 @@ function App() {
                         const randomIndex = Math.floor(getRandomNumber());
                         setCurrentPlayer(playersArray[randomIndex]);
                     }}
-                    setPickedPlayersArr={(multiplier) => setPickedPlayersArr(prev => {
+                    setPickedPlayersArr={(btnText) => setPickedPlayersArr(prev => {
                         const auxArr = [...prev, currentPlayer];
-                        auxArr[auxArr.length - 1] = { ...auxArr[auxArr.length - 1], goals: auxArr[auxArr.length - 1].goals * multiplier };
+                        auxArr[auxArr.length - 1] = { ...auxArr[auxArr.length - 1], goals: auxArr[auxArr.length - 1].goals * Number(btnText.toString().charAt(btnText.toString().length - 1)) };
                         setX1(X1 + 1);
                         return auxArr;
                     })}
@@ -203,9 +203,9 @@ function App() {
                         const randomIndex = Math.floor(getRandomNumber());
                         setCurrentPlayer(playersArray[randomIndex]);
                     }}
-                    setPickedPlayersArr={(multiplier) => setPickedPlayersArr(prev => {
+                    setPickedPlayersArr={(btnText) => setPickedPlayersArr(prev => {
                         const auxArr = [...prev, currentPlayer];
-                        auxArr[auxArr.length - 1] = { ...auxArr[auxArr.length - 1], goals: auxArr[auxArr.length - 1].goals * multiplier };
+                        auxArr[auxArr.length - 1] = { ...auxArr[auxArr.length - 1], goals: auxArr[auxArr.length - 1].goals * Number(btnText.toString().charAt(btnText.toString().length - 1)) };
                         setX2(X2 + 1);
                         return auxArr;
                     })}
@@ -219,9 +219,9 @@ function App() {
                         const randomIndex = Math.floor(getRandomNumber());
                         setCurrentPlayer(playersArray[randomIndex]);
                     }}
-                    setPickedPlayersArr={(multiplier) => setPickedPlayersArr(prev => {
+                    setPickedPlayersArr={(btnText) => setPickedPlayersArr(prev => {
                         const auxArr = [...prev, currentPlayer];
-                        auxArr[auxArr.length - 1] = { ...auxArr[auxArr.length - 1], goals: auxArr[auxArr.length - 1].goals * multiplier };
+                        auxArr[auxArr.length - 1] = { ...auxArr[auxArr.length - 1], goals: auxArr[auxArr.length - 1].goals * Number(btnText.toString().charAt(btnText.toString().length - 1)) };
                         setX3(X3 + 1);
                         return auxArr;
                     })}
@@ -235,9 +235,9 @@ function App() {
                         const randomIndex = Math.floor(getRandomNumber());
                         setCurrentPlayer(playersArray[randomIndex]);
                     }}
-                    setPickedPlayersArr={(multiplier) => setPickedPlayersArr(prev => {
+                    setPickedPlayersArr={(btnText) => setPickedPlayersArr(prev => {
                         const auxArr = [...prev, currentPlayer];
-                        auxArr[auxArr.length - 1] = { ...auxArr[auxArr.length - 1], goals: auxArr[auxArr.length - 1].goals * multiplier };
+                        auxArr[auxArr.length - 1] = { ...auxArr[auxArr.length - 1], goals: auxArr[auxArr.length - 1].goals * Number(btnText.toString().charAt(btnText.toString().length - 1)) };
                         setX4(X4 + 1);
                         return auxArr;
                     })}
