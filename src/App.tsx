@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react"
 import SetSlotButton from "./SetSlotButton";
+import PickedPlayersSlot from "./PickedPlayersSlot";
+export type Player = { id: string, name: string, goals: number };
 
 function App() {
-    type Player = { id: string, name: string, goals: number };
     const playersArray: Array<Player> = [
         { id: crypto.randomUUID(), name: 'Cristiano Ronaldo', goals: 906 },
         { id: crypto.randomUUID(), name: 'Lionel Messi', goals: 896 },
@@ -154,7 +155,7 @@ function App() {
     const [result, setResult] = useState<number>(0);
     const [goal, setGoal] = useState<number>(6000);
     const [X1, setX1] = useState<number>(0);
-    const [maxX1, setMaxX1] = useState<number>(3);
+    const [maxX1, setMaxX1] = useState<number>(4);
     const [X2, setX2] = useState<number>(0);
     const [maxX2, setMaxX2] = useState<number>(3);
     const [X3, setX3] = useState<number>(0);
@@ -195,6 +196,26 @@ function App() {
         setMaxArrLength(Number(maxX1 + maxX2 + maxX3 + maxX4));
     }, [maxX1, maxX2, maxX3, maxX4]);
 
+    function resetGame() {
+        setPickedPlayersArr([]);
+        setX1(0);
+        setX2(0);
+        setX3(0);
+        setX4(0);
+        setResult(0);
+    }
+
+    function setMaxSlots(x1: number, x2: number, x3: number, x4: number) {
+        setMaxX1(x1);
+        setMaxX2(x2);
+        setMaxX3(x3);
+        setMaxX4(x4);
+    }
+
+    function getRandomNumber(): number {
+        return Math.floor(Math.random() * playersArray.length);
+    }
+
     return (
         <main>
             <h1>Goal: {goal}</h1>
@@ -202,32 +223,19 @@ function App() {
                 const selectedValue = Number(e.target.value);
                 switch (selectedValue) {
                     case 6000:
-                        setMaxX1(3);
-                        setMaxX2(3);
-                        setMaxX3(2);
-                        setMaxX4(0);
+                        setMaxSlots(4, 3, 2, 0);
                         break;
                     case 9000:
-                        setMaxX1(3);
-                        setMaxX2(3);
-                        setMaxX3(2);
-                        setMaxX4(1);
+                        setMaxSlots(3, 3, 2, 1);
                         break;
                     case 11000:
-                        setMaxX1(3);
-                        setMaxX2(3);
-                        setMaxX3(2);
-                        setMaxX4(2);
+                        setMaxSlots(3, 3, 2, 2);
                         break;
                     default:
                         break;
                 }
-                setPickedPlayersArr([]);
-                setX1(0);
-                setX2(0);
-                setX3(0);
-                setX4(0);
-                setResult(0);
+                resetGame();
+                setHighestScore(0);
                 setGoal(selectedValue);
             }}>
                 <option value="6000">6000</option>
@@ -235,20 +243,11 @@ function App() {
                 <option value="11000">11000</option>
             </select>
             <button className="button" disabled={gameStarted} onClick={() => {
-                if (pickedPlayersArr.length < maxArrLength) {
-                    const randomIndex = Math.floor(Math.random() * playersArray.length);
-                    setCurrentPlayer(playersArray[randomIndex]);
-                    setGameStarted(true);
-                } else if (pickedPlayersArr.length >= maxArrLength) {
-                    setPickedPlayersArr([]);
-                    setX1(0);
-                    setX2(0);
-                    setX3(0);
-                    setX4(0);
-                    setResult(0);
-                    const randomIndex = Math.floor(Math.random() * playersArray.length);
-                    setCurrentPlayer(playersArray[randomIndex]);
-                    setGameStarted(true);
+                const randomIndex = Math.floor(getRandomNumber());
+                setCurrentPlayer(playersArray[randomIndex]);
+                setGameStarted(true);
+                if (pickedPlayersArr.length >= maxArrLength) {
+                    resetGame();
                 }
             }}>{pickedPlayersArr.length >= maxArrLength ? 'Play again!' : 'Start game!'}</button>
 
@@ -256,7 +255,7 @@ function App() {
             <div className="options">
                 <SetSlotButton
                     getPlayer={() => {
-                        const randomIndex = Math.floor(Math.random() * playersArray.length);
+                        const randomIndex = Math.floor(getRandomNumber());
                         setCurrentPlayer(playersArray[randomIndex]);
                     }}
                     setPickedPlayersArr={(multiplier) => setPickedPlayersArr(prev => {
@@ -272,7 +271,7 @@ function App() {
                 />
                 <SetSlotButton
                     getPlayer={() => {
-                        const randomIndex = Math.floor(Math.random() * playersArray.length);
+                        const randomIndex = Math.floor(getRandomNumber());
                         setCurrentPlayer(playersArray[randomIndex]);
                     }}
                     setPickedPlayersArr={(multiplier) => setPickedPlayersArr(prev => {
@@ -288,7 +287,7 @@ function App() {
                 />
                 <SetSlotButton
                     getPlayer={() => {
-                        const randomIndex = Math.floor(Math.random() * playersArray.length);
+                        const randomIndex = Math.floor(getRandomNumber());
                         setCurrentPlayer(playersArray[randomIndex]);
                     }}
                     setPickedPlayersArr={(multiplier) => setPickedPlayersArr(prev => {
@@ -304,7 +303,7 @@ function App() {
                 />
                 <SetSlotButton
                     getPlayer={() => {
-                        const randomIndex = Math.floor(Math.random() * playersArray.length);
+                        const randomIndex = Math.floor(getRandomNumber());
                         setCurrentPlayer(playersArray[randomIndex]);
                     }}
                     setPickedPlayersArr={(multiplier) => setPickedPlayersArr(prev => {
@@ -320,9 +319,7 @@ function App() {
                 />
             </div>
             <div className="slots">
-                {pickedPlayersArr.map(player => {
-                    return <p>{`${player.name} - ${player.goals}`}</p>
-                })}
+                {<PickedPlayersSlot allPlayers={playersArray} pickedPlayers={pickedPlayersArr} />}
             </div>
             {pickedPlayersArr.length >= maxArrLength &&
                 <div className="modal_backdrop">

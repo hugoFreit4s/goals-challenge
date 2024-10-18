@@ -1,0 +1,3 @@
+1. Fazer com que não apareça um player ao chegar ao último player do game.
+2. Separar os jogadores de acordo com o multiplicador (multiplicou os gols por 1? fica no 1. multiplicou por 2? fica no 2, etc...).
+3. 
