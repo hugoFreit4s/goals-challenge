@@ -198,7 +198,7 @@ function App() {
     return (
         <main>
             <h1>Goal: {goal}</h1>
-            <select name="goal" id="goal_select" onChange={(e) => {
+            <select name="goal" id="goal_select" disabled={gameStarted} onChange={(e) => {
                 const selectedValue = Number(e.target.value);
                 switch (selectedValue) {
                     case 6000:
@@ -222,6 +222,12 @@ function App() {
                     default:
                         break;
                 }
+                setPickedPlayersArr([]);
+                setX1(0);
+                setX2(0);
+                setX3(0);
+                setX4(0);
+                setResult(0);
                 setGoal(selectedValue);
             }}>
                 <option value="6000">6000</option>
@@ -259,7 +265,6 @@ function App() {
                         setX1(X1 + 1);
                         return auxArr;
                     })}
-                    multiplier={1}
                     slotVerifier={X1}
                     maxLength={maxX1}
                     setSlotVerifier={() => setX1(X1 + 1)}
@@ -276,7 +281,6 @@ function App() {
                         setX2(X2 + 1);
                         return auxArr;
                     })}
-                    multiplier={2}
                     slotVerifier={X2}
                     maxLength={maxX2}
                     setSlotVerifier={() => setX2(X2 + 1)}
@@ -293,7 +297,6 @@ function App() {
                         setX3(X3 + 1);
                         return auxArr;
                     })}
-                    multiplier={3}
                     slotVerifier={X3}
                     maxLength={maxX3}
                     setSlotVerifier={() => setX3(X3 + 1)}
@@ -310,7 +313,6 @@ function App() {
                         setX4(X4 + 1);
                         return auxArr;
                     })}
-                    multiplier={4}
                     slotVerifier={X4}
                     maxLength={maxX4}
                     setSlotVerifier={() => setX4(X4 + 1)}
