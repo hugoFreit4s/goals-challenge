@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react"
 import SetSlotButton from "./SetSlotButton";
 import PickedPlayersSlot from "./PickedPlayersSlot";
+import SixKGame from "./SixKGame";
+import NineKGame from "./NineKGame";
+import ElevenKGame from "./ElevenKGame";
 export type Player = { id: string, name: string, goals: number };
 
 function App() {
@@ -94,10 +97,13 @@ function App() {
     const [X5, setX5] = useState<number>(0);
     const [maxX5, setMaxX5] = useState<number>(0);
     const [highestScore, setHighestScore] = useState<number>(0);
-    const [maxArrLength, setMaxArrLength] = useState<number>(maxX1 + maxX2 + maxX3 + maxX4);
+    const [maxArrLength, setMaxArrLength] = useState<number>(7);
+    const [triggerX1Button, setTriggerX1Button] = useState<boolean>(false);
 
 
     useEffect(() => {
+        console.log(pickedPlayersArr)
+        console.log(maxArrLength)
         if (pickedPlayersArr.length >= maxArrLength) {
             let acc = 0
             pickedPlayersArr.forEach(player => {
@@ -121,11 +127,7 @@ function App() {
             }
             return auxArr;
         });
-    }, [X1, X2, X3, X4, X5]);
-
-    useEffect(() => {
-        setMaxArrLength(Number(maxX1 + maxX2 + maxX3 + maxX4 + maxX5));
-    }, [maxX1, maxX2, maxX3, maxX4, maxX5]);
+    }, [triggerX1Button]);
 
     function resetGame() {
         setPickedPlayersArr([]);
@@ -156,13 +158,13 @@ function App() {
                 const selectedValue = Number(e.target.value);
                 switch (selectedValue) {
                     case 6000:
-                        setMaxSlots(4, 3, 1, 1, 0);
+                        setMaxArrLength(7);
                         break;
                     case 9000:
-                        setMaxSlots(3, 3, 2, 1, 0);
+                        setMaxArrLength(8);
                         break;
                     case 11000:
-                        setMaxSlots(3, 3, 2, 1, 1);
+                        setMaxArrLength(10);
                         break;
                     default:
                         break;
@@ -187,89 +189,47 @@ function App() {
 
             <div className="current_player">{currentPlayer.name}</div>
             <div className="options">
-                <SetSlotButton
+                {goal === 6000 && <SixKGame
                     getPlayer={() => {
                         const randomIndex = Math.floor(getRandomNumber());
                         setCurrentPlayer(playersArray[randomIndex]);
+                        console.log(currentPlayer)
                     }}
-                    setPickedPlayersArr={(btnText) => setPickedPlayersArr(prev => {
+                    setPickedPlayersArr={(mult) => setPickedPlayersArr(prev => {
                         const auxArr = [...prev, currentPlayer];
-                        auxArr[auxArr.length - 1] = { ...auxArr[auxArr.length - 1], goals: auxArr[auxArr.length - 1].goals * Number(btnText.toString().charAt(btnText.toString().length - 1)) };
+                        auxArr[auxArr.length - 1] = { ...auxArr[auxArr.length - 1], goals: auxArr[auxArr.length - 1].goals * mult };
                         setX1(X1 + 1);
                         return auxArr;
                     })}
-                    slotVerifier={X1}
-                    maxLength={maxX1}
-                    setSlotVerifier={() => setX1(X1 + 1)}
-                    btnText="X1"
-                />
-                <SetSlotButton
+                    currentPlayer={currentPlayer}
+                    triggerX1Button={() => setTriggerX1Button(!triggerX1Button)}
+                />}
+                {goal === 9000 && <NineKGame
                     getPlayer={() => {
                         const randomIndex = Math.floor(getRandomNumber());
                         setCurrentPlayer(playersArray[randomIndex]);
+                        console.log(currentPlayer)
                     }}
-                    setPickedPlayersArr={(btnText) => setPickedPlayersArr(prev => {
+                    setPickedPlayersArr={(mult) => setPickedPlayersArr(prev => {
                         const auxArr = [...prev, currentPlayer];
-                        auxArr[auxArr.length - 1] = { ...auxArr[auxArr.length - 1], goals: auxArr[auxArr.length - 1].goals * Number(btnText.toString().charAt(btnText.toString().length - 1)) };
-                        setX2(X2 + 1);
+                        auxArr[auxArr.length - 1] = { ...auxArr[auxArr.length - 1], goals: auxArr[auxArr.length - 1].goals * mult };
+                        setX1(X1 + 1);
                         return auxArr;
                     })}
-                    slotVerifier={X2}
-                    maxLength={maxX2}
-                    setSlotVerifier={() => setX2(X2 + 1)}
-                    btnText="X2"
-                />
-                <SetSlotButton
+                    currentPlayer={currentPlayer} />}
+                {goal === 11000 && <ElevenKGame
                     getPlayer={() => {
                         const randomIndex = Math.floor(getRandomNumber());
                         setCurrentPlayer(playersArray[randomIndex]);
+                        console.log(currentPlayer)
                     }}
-                    setPickedPlayersArr={(btnText) => setPickedPlayersArr(prev => {
+                    setPickedPlayersArr={(mult) => setPickedPlayersArr(prev => {
                         const auxArr = [...prev, currentPlayer];
-                        auxArr[auxArr.length - 1] = { ...auxArr[auxArr.length - 1], goals: auxArr[auxArr.length - 1].goals * Number(btnText.toString().charAt(btnText.toString().length - 1)) };
-                        setX3(X3 + 1);
+                        auxArr[auxArr.length - 1] = { ...auxArr[auxArr.length - 1], goals: auxArr[auxArr.length - 1].goals * mult };
+                        setX1(X1 + 1);
                         return auxArr;
                     })}
-                    slotVerifier={X3}
-                    maxLength={maxX3}
-                    setSlotVerifier={() => setX3(X3 + 1)}
-                    btnText="X3"
-                />
-                <SetSlotButton
-                    getPlayer={() => {
-                        const randomIndex = Math.floor(getRandomNumber());
-                        setCurrentPlayer(playersArray[randomIndex]);
-                    }}
-                    setPickedPlayersArr={(btnText) => setPickedPlayersArr(prev => {
-                        const auxArr = [...prev, currentPlayer];
-                        auxArr[auxArr.length - 1] = { ...auxArr[auxArr.length - 1], goals: auxArr[auxArr.length - 1].goals * Number(btnText.toString().charAt(btnText.toString().length - 1)) };
-                        setX4(X4 + 1);
-                        return auxArr;
-                    })}
-                    slotVerifier={X4}
-                    maxLength={maxX4}
-                    setSlotVerifier={() => setX4(X4 + 1)}
-                    btnText="X4"
-                />
-                <SetSlotButton
-                    getPlayer={() => {
-                        const randomIndex = Math.floor(getRandomNumber());
-                        setCurrentPlayer(playersArray[randomIndex]);
-                    }}
-                    setPickedPlayersArr={(btnText) => setPickedPlayersArr(prev => {
-                        const auxArr = [...prev, currentPlayer];
-                        auxArr[auxArr.length - 1] = { ...auxArr[auxArr.length - 1], goals: auxArr[auxArr.length - 1].goals * Number(btnText.toString().charAt(btnText.toString().length - 1)) };
-                        setX5(X5 + 1);
-                        return auxArr;
-                    })}
-                    slotVerifier={X5}
-                    maxLength={maxX5}
-                    setSlotVerifier={() => setX5(X5 + 1)}
-                    btnText="X5"
-                />
-            </div>
-            <div className="slots">
-                {<PickedPlayersSlot allPlayers={playersArray} pickedPlayers={pickedPlayersArr} />}
+                    currentPlayer={currentPlayer} />}
             </div>
             {pickedPlayersArr.length >= maxArrLength &&
                 <div className="modal_backdrop">

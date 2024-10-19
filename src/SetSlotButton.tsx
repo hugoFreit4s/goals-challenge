@@ -1,19 +1,23 @@
+import { Player } from "./App";
+
 type ButtonProps = {
-    setPickedPlayersArr: (mult: number) => void;
-    slotVerifier: number;
-    maxLength: number;
-    setSlotVerifier: () => void;
+    setPickedPlayersArr: () => void;
     btnText: string;
     getPlayer: () => void;
+    currentPlayer: Player;
+    multiplier: number;
+    triggerX1Button: () => void;
 }
 
-function SetSlotButton({ setPickedPlayersArr, slotVerifier, maxLength, setSlotVerifier, btnText, getPlayer }: ButtonProps) {
+function SetSlotButton({ setPickedPlayersArr, btnText, getPlayer, currentPlayer, multiplier, triggerX1Button }: ButtonProps) {
     return (
-        <button disabled={slotVerifier >= maxLength} onClick={() => {
-            setPickedPlayersArr(Number(btnText.charAt(btnText.length - 1)));
-            setSlotVerifier();
+        <button onClick={(e) => {
+            setPickedPlayersArr();
             getPlayer();
-        }} style={{ display: maxLength <= 0 ? 'none' : 'initial' }}>{btnText}</button>
+            triggerX1Button();
+            e.currentTarget.textContent = `${currentPlayer.name} (${currentPlayer.goals * multiplier})`;
+            e.currentTarget.disabled = true;
+        }}>{btnText}</button>
     )
 }
 
