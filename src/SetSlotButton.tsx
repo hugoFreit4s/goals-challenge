@@ -1,19 +1,19 @@
 type ButtonProps = {
     setPickedPlayersArr: (mult: number) => void;
-    slotVerifier: number;
-    maxLength: number;
-    setSlotVerifier: () => void;
+    attempts: number;
+    setAttempts: () => void;
     btnText: string;
     getPlayer: () => void;
 }
 
-function SetSlotButton({ setPickedPlayersArr, slotVerifier, maxLength, setSlotVerifier, btnText, getPlayer }: ButtonProps) {
+function SetSlotButton({ setPickedPlayersArr, attempts: slotVerifier, setAttempts: setSlotVerifier, btnText, getPlayer }: ButtonProps) {
     return (
-        <button disabled={slotVerifier >= maxLength} onClick={() => {
+        <button disabled={slotVerifier <= 0} onClick={() => {
+            if (slotVerifier <= 0) return
             setPickedPlayersArr(Number(btnText.charAt(btnText.length - 1)));
             setSlotVerifier();
             getPlayer();
-        }} style={{ display: maxLength <= 0 ? 'none' : 'initial' }}>{btnText}</button>
+        }}>{btnText}</button>
     )
 }
 

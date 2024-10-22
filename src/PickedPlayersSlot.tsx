@@ -1,8 +1,8 @@
-import { Player } from "./App"
+import { SelectedPlayer } from "./App"
 
 type PickedPlayerProps = {
-    pickedPlayers: Array<Player>
-    allPlayers: Array<Player>
+    pickedPlayers: Array<SelectedPlayer>
+    allPlayers: Array<SelectedPlayer>
 }
 
 function PickedPlayersSlot({ pickedPlayers, allPlayers }: PickedPlayerProps) {

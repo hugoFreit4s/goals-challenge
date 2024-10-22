@@ -5,3 +5,5 @@
 //Duvidas
 1. Como resolver o erro da 'key' em uma lista.
 2. Problema com o ID dos jogadores (com crypto.randomUUID() o ID muda e atrapalha a lógica de mostrar os jogadores selecionados na tela).
+
+reduce
