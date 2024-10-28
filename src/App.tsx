@@ -167,11 +167,15 @@ function App() {
         setGoalsMultiplierInitialState();
         setResult(0);
         setPickedPlayersArr([]);
-        setSlots([]);
+        changeSlotLayout();
     }
 
     useEffect(() => {
         setGoalsMultiplierInitialState();
+        changeSlotLayout()
+    }, [targetGoals])
+
+    function changeSlotLayout() {
         switch (targetGoals) {
             case 6000:
                 setSlots([
@@ -217,7 +221,7 @@ function App() {
             default:
                 break;
         }
-    }, [targetGoals])
+    }
 
     function getRandomNumber(): number {
         return Math.floor(Math.random() * playersArray.length);
