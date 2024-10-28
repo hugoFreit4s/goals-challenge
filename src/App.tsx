@@ -1,6 +1,5 @@
 import { useEffect, useMemo, useState } from "react"
 import SetSlotButton from "./SetSlotButton";
-import PickedPlayersSlot from "./PickedPlayersSlot";
 const playersArray: Array<Player> = [
     { id: crypto.randomUUID(), name: 'Cristiano Ronaldo', goals: 906 },
     { id: crypto.randomUUID(), name: 'Lionel Messi', goals: 896 },
@@ -75,7 +74,11 @@ const playersArray: Array<Player> = [
     { id: crypto.randomUUID(), name: 'Johan Cruyff', goals: 368 },
 ];
 export type Player = { id: string, name: string, goals: number };
-export type SelectedPlayer = { "1stX1": Player, "2ndX1": Player, "3rdX1": Player, "1stX2": Player, "2ndX2": Player, "3rdX2": Player, "1stX3": Player, "2ndX3": Player, "3rdX3": Player, "1stX4": Player, "1stX5": Player };
+type Slot = {
+    text: string,
+    multiplier: number,
+    player: Player | undefined
+}
 type TimesGoalsMultiplierType = {
     x1: number,
     x2: number,
@@ -104,15 +107,10 @@ const multiplier11000GoalsInitialState: TimesGoalsMultiplierType = {
     x4: 1,
     x5: 1
 }
-const maxAttemptsInitialState = multiplier6000GoalsInitialState.x1
-    + multiplier6000GoalsInitialState.x2
-    + multiplier6000GoalsInitialState.x3
-    + multiplier6000GoalsInitialState.x4
-    + multiplier6000GoalsInitialState.x5
 
 function App() {
 
-    const [pickedPlayersArr, setPickedPlayersArr] = useState<SelectedPlayer[]>([]);
+    const [pickedPlayersArr, setPickedPlayersArr] = useState<Player[]>([]);
     const [currentPlayer, setCurrentPlayer] = useState<Player>({} as Player);
     const [gameStarted, setGameStarted] = useState<boolean>(false);
     const [result, setResult] = useState<number>(0);
@@ -126,24 +124,25 @@ function App() {
             + timesGoalsMultiplier.x4
             + timesGoalsMultiplier.x5
     }, [timesGoalsMultiplier]);
+    const [slots, setSlots] = useState<Array<Slot>>([]);
 
 
     useEffect(() => {
         if (pickedPlayersArr.length >= maxAttempts) {
             let acc = 0
-            pickedPlayersArr.forEach(player => {
-                acc += player.goals;
+            slots.forEach(slot => {
+                acc += slot.player!.goals * slot.multiplier;
             });
             setResult(acc);
             setHighestScore(acc > highestScore ? acc : highestScore);
             setGameStarted(false);
         }
 
-        setPickedPlayersArr((prev) => {
+        setSlots((prev) => {
             const auxArr = [...prev]
             for (let i = 0; i < auxArr.length - 1; i++) {
                 for (let j = i + 1; j < auxArr.length; j++) {
-                    if (auxArr[j].goals < auxArr[i].goals) {
+                    if (auxArr[j].multiplier < auxArr[i].multiplier) {
                         let aux = auxArr[j];
                         auxArr[j] = auxArr[i];
                         auxArr[i] = { ...aux };
@@ -152,7 +151,7 @@ function App() {
             }
             return auxArr;
         });
-    }, [timesGoalsMultiplier]);
+    }, [timesGoalsMultiplier, maxAttempts]);
 
     function setGoalsMultiplierInitialState() {
         if (targetGoals === 6000) {
@@ -168,6 +167,7 @@ function App() {
         setGoalsMultiplierInitialState();
         setResult(0);
         setPickedPlayersArr([]);
+        setSlots([]);
     }
 
     useEffect(() => {
@@ -207,20 +207,91 @@ function App() {
                         const randomIndex = Math.floor(getRandomNumber());
                         setCurrentPlayer(playersArray[randomIndex]);
                     }}
-                    setPickedPlayersArr={() => setPickedPlayersArr(prev => {
-                        const auxArr = [...prev, currentPlayer];
-                        auxArr[auxArr.length - 1] = { ...auxArr[auxArr.length - 1], goals: auxArr[auxArr.length - 1].goals * 1 };
-                        return auxArr;
-                    })}
+                    setPickedPlayersArr={() => setSlots(prev => {
+                        let auxArr = [...prev, { text: 'X1', multiplier: 1, player: currentPlayer }];
+                        console.log(slots)
+                        return auxArr
+                    })
+                    }
                     attempts={timesGoalsMultiplier.x1}
                     setAttempts={() => setTimesGoalsMultiplier((prev) => {
                         return { ...prev, x1: prev.x1 - 1 }
                     })}
                     btnText="X1"
                 />
+                <SetSlotButton
+                    getPlayer={() => {
+                        const randomIndex = Math.floor(getRandomNumber());
+                        setCurrentPlayer(playersArray[randomIndex]);
+                    }}
+                    setPickedPlayersArr={() => setSlots(prev => {
+                        let auxArr = [...prev, { text: 'X2', multiplier: 2, player: currentPlayer }];
+                        console.log(slots)
+                        return auxArr
+                    })
+                    }
+                    attempts={timesGoalsMultiplier.x2}
+                    setAttempts={() => setTimesGoalsMultiplier((prev) => {
+                        return { ...prev, x2: prev.x2 - 1 }
+                    })}
+                    btnText="X2"
+                />
+                <SetSlotButton
+                    getPlayer={() => {
+                        const randomIndex = Math.floor(getRandomNumber());
+                        setCurrentPlayer(playersArray[randomIndex]);
+                    }}
+                    setPickedPlayersArr={() => setSlots(prev => {
+                        let auxArr = [...prev, { text: 'X3', multiplier: 3, player: currentPlayer }];
+                        console.log(slots)
+                        return auxArr
+                    })
+                    }
+                    attempts={timesGoalsMultiplier.x3}
+                    setAttempts={() => setTimesGoalsMultiplier((prev) => {
+                        return { ...prev, x3: prev.x3 - 1 }
+                    })}
+                    btnText="X3"
+                />
+                <SetSlotButton
+                    getPlayer={() => {
+                        const randomIndex = Math.floor(getRandomNumber());
+                        setCurrentPlayer(playersArray[randomIndex]);
+                    }}
+                    setPickedPlayersArr={() => setSlots(prev => {
+                        let auxArr = [...prev, { text: 'X4', multiplier: 4, player: currentPlayer }];
+                        console.log(slots)
+                        return auxArr
+                    })
+                    }
+                    attempts={timesGoalsMultiplier.x4}
+                    setAttempts={() => setTimesGoalsMultiplier((prev) => {
+                        return { ...prev, x4: prev.x4 - 1 }
+                    })}
+                    btnText="X4"
+                />
+                <SetSlotButton
+                    getPlayer={() => {
+                        const randomIndex = Math.floor(getRandomNumber());
+                        setCurrentPlayer(playersArray[randomIndex]);
+                    }}
+                    setPickedPlayersArr={() => setSlots(prev => {
+                        let auxArr = [...prev, { text: 'X5', multiplier: 5, player: currentPlayer }];
+                        console.log(slots)
+                        return auxArr
+                    })
+                    }
+                    attempts={timesGoalsMultiplier.x5}
+                    setAttempts={() => setTimesGoalsMultiplier((prev) => {
+                        return { ...prev, x5: prev.x5 - 1 }
+                    })}
+                    btnText="X5"
+                />
             </div>
             <div className="slots">
-                {<PickedPlayersSlot allPlayers={playersArray} pickedPlayers={pickedPlayersArr} />}
+                {slots.map(s => {
+                    return <p>{s.text}: {s.player?.name} ({s.player!.goals * s.multiplier})</p>
+                })}
             </div>
             {pickedPlayersArr.length >= maxAttempts &&
                 <div className="modal_backdrop">
