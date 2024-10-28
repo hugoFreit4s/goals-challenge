@@ -172,6 +172,51 @@ function App() {
 
     useEffect(() => {
         setGoalsMultiplierInitialState();
+        switch (targetGoals) {
+            case 6000:
+                setSlots([
+                    { multiplier: 1, text: 'X1:', player: undefined },
+                    { multiplier: 1, text: 'X1:', player: undefined },
+                    { multiplier: 1, text: 'X1:', player: undefined },
+                    { multiplier: 2, text: 'X2:', player: undefined },
+                    { multiplier: 2, text: 'X2:', player: undefined },
+                    { multiplier: 3, text: 'X3:', player: undefined },
+                    { multiplier: 3, text: 'X3:', player: undefined },
+                    { multiplier: 4, text: 'X4:', player: undefined },
+                ]);
+                break;
+            case 9000:
+                setSlots([
+                    { multiplier: 1, text: 'X1:', player: undefined },
+                    { multiplier: 1, text: 'X1:', player: undefined },
+                    { multiplier: 1, text: 'X1:', player: undefined },
+                    { multiplier: 2, text: 'X2:', player: undefined },
+                    { multiplier: 2, text: 'X2:', player: undefined },
+                    { multiplier: 2, text: 'X2:', player: undefined },
+                    { multiplier: 3, text: 'X3:', player: undefined },
+                    { multiplier: 3, text: 'X3:', player: undefined },
+                    { multiplier: 3, text: 'X3:', player: undefined },
+                    { multiplier: 4, text: 'X4:', player: undefined },
+                ]);
+                break;
+            case 11000:
+                setSlots([
+                    { multiplier: 1, text: 'X1:', player: undefined },
+                    { multiplier: 1, text: 'X1:', player: undefined },
+                    { multiplier: 1, text: 'X1:', player: undefined },
+                    { multiplier: 2, text: 'X2:', player: undefined },
+                    { multiplier: 2, text: 'X2:', player: undefined },
+                    { multiplier: 2, text: 'X2:', player: undefined },
+                    { multiplier: 3, text: 'X3:', player: undefined },
+                    { multiplier: 3, text: 'X3:', player: undefined },
+                    { multiplier: 3, text: 'X3:', player: undefined },
+                    { multiplier: 4, text: 'X4:', player: undefined },
+                    { multiplier: 5, text: 'X5:', player: undefined },
+                ]);
+                break;
+            default:
+                break;
+        }
     }, [targetGoals])
 
     function getRandomNumber(): number {
@@ -193,7 +238,6 @@ function App() {
             <button className="button" disabled={gameStarted} onClick={() => {
                 const randomIndex = Math.floor(getRandomNumber());
                 setCurrentPlayer(playersArray[randomIndex]);
-                console.log(currentPlayer)
                 setGameStarted(true);
                 if (pickedPlayersArr.length >= maxAttempts) {
                     resetGame();
@@ -208,8 +252,10 @@ function App() {
                         setCurrentPlayer(playersArray[randomIndex]);
                     }}
                     setPickedPlayersArr={() => setSlots(prev => {
-                        let auxArr = [...prev, { text: 'X1', multiplier: 1, player: currentPlayer }];
-                        console.log(slots)
+                        let index;
+                        index = prev.findIndex(i => i.multiplier === 1 && i.player === undefined)
+                        let auxArr = [...prev];
+                        auxArr[index] = { ...auxArr[index], player: currentPlayer }
                         return auxArr
                     })
                     }
@@ -225,72 +271,72 @@ function App() {
                         setCurrentPlayer(playersArray[randomIndex]);
                     }}
                     setPickedPlayersArr={() => setSlots(prev => {
-                        let auxArr = [...prev, { text: 'X2', multiplier: 2, player: currentPlayer }];
-                        console.log(slots)
+                        let index;
+                        index = prev.findIndex(i => i.multiplier === 2 && i.player === undefined)
+                        let auxArr = [...prev];
+                        auxArr[index] = { ...auxArr[index], player: currentPlayer }
                         return auxArr
-                    })
-                    }
+                    })}
                     attempts={timesGoalsMultiplier.x2}
                     setAttempts={() => setTimesGoalsMultiplier((prev) => {
                         return { ...prev, x2: prev.x2 - 1 }
                     })}
-                    btnText="X2"
-                />
+                    btnText="X2" />
                 <SetSlotButton
                     getPlayer={() => {
                         const randomIndex = Math.floor(getRandomNumber());
                         setCurrentPlayer(playersArray[randomIndex]);
                     }}
                     setPickedPlayersArr={() => setSlots(prev => {
-                        let auxArr = [...prev, { text: 'X3', multiplier: 3, player: currentPlayer }];
-                        console.log(slots)
+                        let index;
+                        index = prev.findIndex(i => i.multiplier === 3 && i.player === undefined)
+                        let auxArr = [...prev];
+                        auxArr[index] = { ...auxArr[index], player: currentPlayer }
                         return auxArr
-                    })
-                    }
+                    })}
                     attempts={timesGoalsMultiplier.x3}
                     setAttempts={() => setTimesGoalsMultiplier((prev) => {
                         return { ...prev, x3: prev.x3 - 1 }
                     })}
-                    btnText="X3"
-                />
+                    btnText="X3" />
                 <SetSlotButton
                     getPlayer={() => {
                         const randomIndex = Math.floor(getRandomNumber());
                         setCurrentPlayer(playersArray[randomIndex]);
                     }}
                     setPickedPlayersArr={() => setSlots(prev => {
-                        let auxArr = [...prev, { text: 'X4', multiplier: 4, player: currentPlayer }];
-                        console.log(slots)
+                        let index;
+                        index = prev.findIndex(i => i.multiplier === 4 && i.player === undefined)
+                        let auxArr = [...prev];
+                        auxArr[index] = { ...auxArr[index], player: currentPlayer }
                         return auxArr
-                    })
-                    }
+                    })}
                     attempts={timesGoalsMultiplier.x4}
                     setAttempts={() => setTimesGoalsMultiplier((prev) => {
                         return { ...prev, x4: prev.x4 - 1 }
                     })}
-                    btnText="X4"
-                />
+                    btnText="X4" />
                 <SetSlotButton
                     getPlayer={() => {
                         const randomIndex = Math.floor(getRandomNumber());
                         setCurrentPlayer(playersArray[randomIndex]);
                     }}
                     setPickedPlayersArr={() => setSlots(prev => {
-                        let auxArr = [...prev, { text: 'X5', multiplier: 5, player: currentPlayer }];
-                        console.log(slots)
+                        let index;
+                        index = prev.findIndex(i => i.multiplier === 5 && i.player === undefined)
+                        let auxArr = [...prev];
+                        auxArr[index] = { ...auxArr[index], player: currentPlayer }
                         return auxArr
-                    })
-                    }
+                    })}
                     attempts={timesGoalsMultiplier.x5}
                     setAttempts={() => setTimesGoalsMultiplier((prev) => {
                         return { ...prev, x5: prev.x5 - 1 }
                     })}
-                    btnText="X5"
-                />
+                    btnText="X5" />
             </div>
             <div className="slots">
                 {slots.map(s => {
-                    return <p>{s.text}: {s.player?.name} ({s.player!.goals * s.multiplier})</p>
+                    return <p>{s.text} {s.player === undefined ? '' : s.player.name + '(' + s.player.goals * s.multiplier + ')'}</p>
                 })}
             </div>
             {pickedPlayersArr.length >= maxAttempts &&
