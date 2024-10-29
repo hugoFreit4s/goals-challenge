@@ -1,32 +1,59 @@
 import { useEffect, useMemo, useState } from "react"
 import SetSlotButton from "./SetSlotButton";
 const playersArray: Array<Player> = [
+    // Lendários
     { id: crypto.randomUUID(), name: 'Cristiano Ronaldo', goals: 906 },
     { id: crypto.randomUUID(), name: 'Lionel Messi', goals: 896 },
     { id: crypto.randomUUID(), name: 'Pelé', goals: 767 },
     { id: crypto.randomUUID(), name: 'Romário', goals: 772 },
     { id: crypto.randomUUID(), name: 'Ferenc Puskás', goals: 746 },
-    { id: crypto.randomUUID(), name: 'Ronaldo Nazário', goals: 414 },
     { id: crypto.randomUUID(), name: 'Josef Bican', goals: 805 },
     { id: crypto.randomUUID(), name: 'Gerd Müller', goals: 735 },
-    { id: crypto.randomUUID(), name: 'Zlatan Ibrahimović', goals: 573 },
+    { id: crypto.randomUUID(), name: 'Diego Maradona', goals: 344 },
+    { id: crypto.randomUUID(), name: 'Marco van Basten', goals: 277 },
+    { id: crypto.randomUUID(), name: 'George Best', goals: 208 },
+    { id: crypto.randomUUID(), name: 'Hugo Sánchez', goals: 282 },
+    { id: crypto.randomUUID(), name: 'Eusébio', goals: 473 },
+    { id: crypto.randomUUID(), name: 'Johan Cruyff', goals: 368 },
+    { id: crypto.randomUUID(), name: 'Michel Platini', goals: 224 },
+    { id: crypto.randomUUID(), name: 'Alfredo Di Stéfano', goals: 493 },
+
+    // Em atividade (nas grandes ligas europeias)
     { id: crypto.randomUUID(), name: 'Robert Lewandowski', goals: 584 },
-    { id: crypto.randomUUID(), name: 'Thierry Henry', goals: 411 },
-    { id: crypto.randomUUID(), name: 'Raúl González', goals: 404 },
     { id: crypto.randomUUID(), name: 'Neymar Jr.', goals: 436 },
     { id: crypto.randomUUID(), name: 'Luis Suárez', goals: 528 },
     { id: crypto.randomUUID(), name: 'Karim Benzema', goals: 437 },
-    { id: crypto.randomUUID(), name: 'Diego Maradona', goals: 344 },
+    { id: crypto.randomUUID(), name: 'Edinson Cavani', goals: 429 },
+    { id: crypto.randomUUID(), name: 'Kylian Mbappé', goals: 267 },
+    { id: crypto.randomUUID(), name: 'Harry Kane', goals: 317 },
+    { id: crypto.randomUUID(), name: 'Mohamed Salah', goals: 230 },
+    { id: crypto.randomUUID(), name: 'Sadio Mané', goals: 205 },
+    { id: crypto.randomUUID(), name: 'Raheem Sterling', goals: 160 },
+    { id: crypto.randomUUID(), name: 'Romelu Lukaku', goals: 250 },
+    { id: crypto.randomUUID(), name: 'Antoine Griezmann', goals: 220 },
+    { id: crypto.randomUUID(), name: 'Ciro Immobile', goals: 210 },
+    { id: crypto.randomUUID(), name: 'Paulo Dybala', goals: 130 },
+    { id: crypto.randomUUID(), name: 'Lautaro Martínez', goals: 115 },
+    { id: crypto.randomUUID(), name: 'Erling Haaland', goals: 160 },
+    { id: crypto.randomUUID(), name: 'Gabriel Jesus', goals: 120 },
+    { id: crypto.randomUUID(), name: 'Bruno Fernandes', goals: 135 },
+    { id: crypto.randomUUID(), name: 'Kevin De Bruyne', goals: 115 },
+    { id: crypto.randomUUID(), name: 'João Félix', goals: 95 },
+    { id: crypto.randomUUID(), name: 'Son Heung-min', goals: 170 },
+    { id: crypto.randomUUID(), name: 'Marcus Rashford', goals: 130 },
+    { id: crypto.randomUUID(), name: 'Phil Foden', goals: 65 },
+    { id: crypto.randomUUID(), name: 'Vinícius Júnior', goals: 60 },
+
+    // Aposentados conhecidos
+    { id: crypto.randomUUID(), name: 'Thierry Henry', goals: 411 },
+    { id: crypto.randomUUID(), name: 'Raúl González', goals: 404 },
     { id: crypto.randomUUID(), name: 'Sergio Agüero', goals: 427 },
     { id: crypto.randomUUID(), name: 'Francesco Totti', goals: 316 },
     { id: crypto.randomUUID(), name: 'Alessandro Del Piero', goals: 346 },
     { id: crypto.randomUUID(), name: 'Gabriel Batistuta', goals: 356 },
     { id: crypto.randomUUID(), name: 'Samuel Eto’o', goals: 359 },
     { id: crypto.randomUUID(), name: 'Didier Drogba', goals: 300 },
-    { id: crypto.randomUUID(), name: 'Edinson Cavani', goals: 429 },
-    { id: crypto.randomUUID(), name: 'Kylian Mbappé', goals: 267 },
     { id: crypto.randomUUID(), name: 'Wayne Rooney', goals: 366 },
-    { id: crypto.randomUUID(), name: 'Marco van Basten', goals: 277 },
     { id: crypto.randomUUID(), name: 'Andriy Shevchenko', goals: 349 },
     { id: crypto.randomUUID(), name: 'Michael Owen', goals: 222 },
     { id: crypto.randomUUID(), name: 'David Villa', goals: 323 },
@@ -66,13 +93,12 @@ const playersArray: Array<Player> = [
     { id: crypto.randomUUID(), name: 'Vincent Kompany', goals: 37 },
     { id: crypto.randomUUID(), name: 'Thiago Silva', goals: 42 },
     { id: crypto.randomUUID(), name: 'Ashley Cole', goals: 20 },
-    { id: crypto.randomUUID(), name: 'Gary Neville', goals: 7 },
     { id: crypto.randomUUID(), name: 'Patrice Evra', goals: 15 },
     { id: crypto.randomUUID(), name: 'Marcelo Vieira', goals: 38 },
     { id: crypto.randomUUID(), name: 'Dani Alves', goals: 60 },
-    { id: crypto.randomUUID(), name: 'João Cancelo', goals: 15 },
-    { id: crypto.randomUUID(), name: 'Johan Cruyff', goals: 368 },
+    { id: crypto.randomUUID(), name: 'João Cancelo', goals: 15 }
 ];
+
 export type Player = { id: string, name: string, goals: number };
 type Slot = {
     text: string,
@@ -89,7 +115,7 @@ type TimesGoalsMultiplierType = {
 const multiplier6000GoalsInitialState: TimesGoalsMultiplierType = {
     x1: 3,
     x2: 2,
-    x3: 2,
+    x3: 1,
     x4: 1,
     x5: 0
 }
@@ -184,7 +210,6 @@ function App() {
                     { multiplier: 1, text: 'X1:', player: undefined },
                     { multiplier: 2, text: 'X2:', player: undefined },
                     { multiplier: 2, text: 'X2:', player: undefined },
-                    { multiplier: 3, text: 'X3:', player: undefined },
                     { multiplier: 3, text: 'X3:', player: undefined },
                     { multiplier: 4, text: 'X4:', player: undefined },
                 ]);
