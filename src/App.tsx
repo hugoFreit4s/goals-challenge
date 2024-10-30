@@ -158,12 +158,7 @@ function getPlayer(): Player {
 function App() {
     const [sortedPlayersList, setSortedPlayersList] = useState<Array<Player>>([]);
     const [currentSlots, setCurrentSlots] = useState<Array<Slot>>(sixKSlots);
-    const [currentPlayer, setCurrentPlayer] = useState<Player>();
-
-    useEffect(() => {
-        const player = getPlayer();
-        setCurrentPlayer(player);
-    }, []);
+    const [currentPlayer, setCurrentPlayer] = useState<Player>(getPlayer());
 
     useEffect(() => {
         if (currentPlayer) {
@@ -189,12 +184,12 @@ function App() {
                                     setCurrentSlots(prev => {
                                         let aux = [...prev];
                                         const index = aux.findIndex(i => i.id === slot.id);
-                                        aux[index] = { ...aux[index], player: currentPlayer, }
+                                        aux[index] = { ...aux[index], player: { ...currentPlayer, goals: currentPlayer.goals * slot.multiplier } }
                                         return aux;
                                     });
                                     setCurrentPlayer(getPlayer());
                                 }}>{slot.text}</button>
-                                <p>{slot.text}: {slot.player !== undefined ? `${slot.player.name} -` : ''} {slot.player !== undefined ? `(${slot.player.goals * slot.multiplier})` : ''}</p>
+                                <p>{slot.text}: {slot.player !== undefined ? `${slot.player.name} -` : ''} {slot.player !== undefined ? `(${slot.player.goals})` : ''}</p>
                             </div>
                         )
                     })}
