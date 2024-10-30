@@ -1,0 +1,10 @@
+.slots{
+    display: flex;
+    flex-direction: column;
+    line-height: 0;
+}
+.slot_row {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}

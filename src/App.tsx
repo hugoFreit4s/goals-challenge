@@ -97,28 +97,28 @@ const playersArray: Array<Player> = [
 
 
 type Player = { id: string, name: string, goals: number, imageURL: string | undefined };
-type Slot = { text: string, multiplier: number, player: Player | undefined };
-const initialSlots: Array<Slot> = [
+type Slot = { id: string, text: string, multiplier: number, player: Player | undefined };
+const sixKSlots: Array<Slot> = [
     {
-        text: 'X1', multiplier: 1, player: undefined
+        id: crypto.randomUUID(), text: 'X1', multiplier: 1, player: undefined
     },
     {
-        text: 'X1', multiplier: 1, player: undefined
+        id: crypto.randomUUID(), text: 'X1', multiplier: 1, player: undefined
     },
     {
-        text: 'X1', multiplier: 1, player: undefined
+        id: crypto.randomUUID(), text: 'X1', multiplier: 1, player: undefined
     },
     {
-        text: 'X2', multiplier: 2, player: undefined
+        id: crypto.randomUUID(), text: 'X2', multiplier: 2, player: undefined
     },
     {
-        text: 'X2', multiplier: 2, player: undefined
+        id: crypto.randomUUID(), text: 'X2', multiplier: 2, player: undefined
     },
     {
-        text: 'X3', multiplier: 3, player: undefined
+        id: crypto.randomUUID(), text: 'X3', multiplier: 3, player: undefined
     },
     {
-        text: 'X4', multiplier: 4, player: undefined
+        id: crypto.randomUUID(), text: 'X4', multiplier: 4, player: undefined
     }];
 type MaxAttempts = { x1: number, x2: number, x3: number, x4: number, x5: number };
 const sixKTargetAttempts: MaxAttempts = {
@@ -157,7 +157,7 @@ function getPlayer(): Player {
 
 function App() {
     const [sortedPlayersList, setSortedPlayersList] = useState<Array<Player>>([]);
-    const [currentSlots, setCurrentSlots] = useState<Array<Slot>>(initialSlots);
+    const [currentSlots, setCurrentSlots] = useState<Array<Slot>>(sixKSlots);
     const [currentPlayer, setCurrentPlayer] = useState<Player>();
 
     useEffect(() => {
@@ -177,11 +177,28 @@ function App() {
 
     return (
         <>
-            <button onClick={() => {
-                setCurrentPlayer(getPlayer());
-            }}>try</button>
             <div className="current_player_data">
                 <img src={currentPlayer?.imageURL} alt="" className="player_image" />
+                <p>{currentPlayer?.name}</p>
+                <div className="slots">
+                    {currentSlots.map(slot => {
+                        return (
+                            <div className="slot_row">
+                                <button className="slot_btn" onClick={(e) => {
+                                    e.currentTarget.disabled = true;
+                                    setCurrentSlots(prev => {
+                                        let aux = [...prev];
+                                        const index = aux.findIndex(i => i.id === slot.id);
+                                        aux[index] = { ...aux[index], player: currentPlayer, }
+                                        return aux;
+                                    });
+                                    setCurrentPlayer(getPlayer());
+                                }}>{slot.text}</button>
+                                <p>{slot.text}: {slot.player !== undefined ? `${slot.player.name} -` : ''} {slot.player !== undefined ? `(${slot.player.goals * slot.multiplier})` : ''}</p>
+                            </div>
+                        )
+                    })}
+                </div>
             </div>
         </>
     )
