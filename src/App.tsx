@@ -248,15 +248,24 @@ function App() {
     const [sumOfGoals, setSumOfGoals] = useState<number>();
     const [sortedPlayers, setSortedPlayers] = useState<Array<Player>>([]);
     const [targetAmountOfGoals, setTargetAmountOfGoals] = useState<string>("6000");
+    const [gameFinished, setGameFinished] = useState<boolean>(false);
 
     useEffect(() => {
-        if (currentSlots.length === 7 && sortedPlayers.length >= 7) {
+        if (sortedPlayers.length === currentSlots.length) {
             let acc = 0;
             currentSlots.map(slot => {
                 acc += slot.player!.goals;
             });
             setSumOfGoals(acc);
+            setGameFinished(true);
+            console.log(gameFinished);
             console.log(sumOfGoals);
+        }
+
+        if (sortedPlayers.length !== currentSlots.length) {
+            setCurrentPlayer(getPlayer());
+        } else {
+            setCurrentPlayer({ name: '', goals: 0, imageURL: '', id: 'none' })
         }
 
     }, [sortedPlayers]);
@@ -278,7 +287,7 @@ function App() {
             default:
                 break;
         }
-    }, [targetAmountOfGoals])
+    }, [targetAmountOfGoals]);
 
     return (
         <>
@@ -313,7 +322,6 @@ function App() {
                                     aux[index] = { ...aux[index], player: { ...currentPlayer, goals: currentPlayer.goals * slot.multiplier } }
                                     return aux;
                                 });
-                                setCurrentPlayer(getPlayer());
                             }}>{slot.text}</button>
                             <p>{slot.text}: {slot.player !== undefined ? `${slot.player.name} -` : ''} {slot.player !== undefined ? `(${slot.player.goals})` : ''}</p>
                         </div>
