@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 
 
 const playersArray: Array<Player> = [
-    { id: crypto.randomUUID(), name: 'Cristiano Ronaldo', goals: 906, imageURL: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS75oMT9Ct6Wq7AiwAJK7nV4yZ2CC86CAj3BQ&s' },
+    { id: crypto.randomUUID(), name: 'Cristiano Ronaldo', goals: 906, imageURL: '' },
     { id: crypto.randomUUID(), name: 'Lionel Messi', goals: 896, imageURL: '' },
     { id: crypto.randomUUID(), name: 'Pelé', goals: 767, imageURL: '' },
     { id: crypto.randomUUID(), name: 'Romário', goals: 772, imageURL: '' },
@@ -97,115 +97,115 @@ const playersArray: Array<Player> = [
 
 
 type Player = { id: string, name: string, goals: number, imageURL: string | undefined };
-type Slot = { id: string, text: string, multiplier: number, player: Player | undefined };
+type Slot = { id: string, text: string, multiplier: number, player: Player | undefined, clicked: boolean; };
 const sixKSlots: Array<Slot> = [
     {
-        id: crypto.randomUUID(), text: 'X1', multiplier: 1, player: undefined
+        id: crypto.randomUUID(), text: 'X1', multiplier: 1, player: undefined, clicked: false,
     },
     {
-        id: crypto.randomUUID(), text: 'X1', multiplier: 1, player: undefined
+        id: crypto.randomUUID(), text: 'X1', multiplier: 1, player: undefined, clicked: false,
     },
     {
-        id: crypto.randomUUID(), text: 'X1', multiplier: 1, player: undefined
+        id: crypto.randomUUID(), text: 'X1', multiplier: 1, player: undefined, clicked: false,
     },
     {
-        id: crypto.randomUUID(), text: 'X2', multiplier: 2, player: undefined
+        id: crypto.randomUUID(), text: 'X2', multiplier: 2, player: undefined, clicked: false,
     },
     {
-        id: crypto.randomUUID(), text: 'X2', multiplier: 2, player: undefined
+        id: crypto.randomUUID(), text: 'X2', multiplier: 2, player: undefined, clicked: false,
     },
     {
-        id: crypto.randomUUID(), text: 'X3', multiplier: 3, player: undefined
+        id: crypto.randomUUID(), text: 'X3', multiplier: 3, player: undefined, clicked: false,
     },
     {
-        id: crypto.randomUUID(), text: 'X4', multiplier: 4, player: undefined
+        id: crypto.randomUUID(), text: 'X4', multiplier: 4, player: undefined, clicked: false,
     }];
 const nineKSlots: Array<Slot> = [
     {
-        id: crypto.randomUUID(), text: 'X1', multiplier: 1, player: undefined
+        id: crypto.randomUUID(), text: 'X1', multiplier: 1, player: undefined, clicked: false,
     },
     {
-        id: crypto.randomUUID(), text: 'X1', multiplier: 1, player: undefined
+        id: crypto.randomUUID(), text: 'X1', multiplier: 1, player: undefined, clicked: false,
     },
     {
-        id: crypto.randomUUID(), text: 'X1', multiplier: 1, player: undefined
+        id: crypto.randomUUID(), text: 'X1', multiplier: 1, player: undefined, clicked: false,
     },
     {
-        id: crypto.randomUUID(), text: 'X2', multiplier: 2, player: undefined
+        id: crypto.randomUUID(), text: 'X2', multiplier: 2, player: undefined, clicked: false,
     },
     {
-        id: crypto.randomUUID(), text: 'X2', multiplier: 2, player: undefined
+        id: crypto.randomUUID(), text: 'X2', multiplier: 2, player: undefined, clicked: false,
     },
     {
-        id: crypto.randomUUID(), text: 'X3', multiplier: 3, player: undefined
+        id: crypto.randomUUID(), text: 'X3', multiplier: 3, player: undefined, clicked: false,
     },
     {
-        id: crypto.randomUUID(), text: 'X3', multiplier: 3, player: undefined
+        id: crypto.randomUUID(), text: 'X3', multiplier: 3, player: undefined, clicked: false,
     },
     {
-        id: crypto.randomUUID(), text: 'X4', multiplier: 4, player: undefined
+        id: crypto.randomUUID(), text: 'X4', multiplier: 4, player: undefined, clicked: false,
     }];
 const tenKSlots: Array<Slot> = [
     {
-        id: crypto.randomUUID(), text: 'X1', multiplier: 1, player: undefined
+        id: crypto.randomUUID(), text: 'X1', multiplier: 1, player: undefined, clicked: false,
     },
     {
-        id: crypto.randomUUID(), text: 'X1', multiplier: 1, player: undefined
+        id: crypto.randomUUID(), text: 'X1', multiplier: 1, player: undefined, clicked: false,
     },
     {
-        id: crypto.randomUUID(), text: 'X1', multiplier: 1, player: undefined
+        id: crypto.randomUUID(), text: 'X1', multiplier: 1, player: undefined, clicked: false,
     },
     {
-        id: crypto.randomUUID(), text: 'X2', multiplier: 2, player: undefined
+        id: crypto.randomUUID(), text: 'X2', multiplier: 2, player: undefined, clicked: false,
     },
     {
-        id: crypto.randomUUID(), text: 'X2', multiplier: 2, player: undefined
+        id: crypto.randomUUID(), text: 'X2', multiplier: 2, player: undefined, clicked: false,
     },
     {
-        id: crypto.randomUUID(), text: 'X3', multiplier: 3, player: undefined
+        id: crypto.randomUUID(), text: 'X3', multiplier: 3, player: undefined, clicked: false,
     },
     {
-        id: crypto.randomUUID(), text: 'X3', multiplier: 3, player: undefined
+        id: crypto.randomUUID(), text: 'X3', multiplier: 3, player: undefined, clicked: false,
     },
     {
-        id: crypto.randomUUID(), text: 'X4', multiplier: 4, player: undefined
+        id: crypto.randomUUID(), text: 'X4', multiplier: 4, player: undefined, clicked: false,
     },
     {
-        id: crypto.randomUUID(), text: 'X5', multiplier: 5, player: undefined
+        id: crypto.randomUUID(), text: 'X5', multiplier: 5, player: undefined, clicked: false,
     }];
 const twelveKSlots: Array<Slot> = [
     {
-        id: crypto.randomUUID(), text: 'X1', multiplier: 1, player: undefined
+        id: crypto.randomUUID(), text: 'X1', multiplier: 1, player: undefined, clicked: false,
     },
     {
-        id: crypto.randomUUID(), text: 'X1', multiplier: 1, player: undefined
+        id: crypto.randomUUID(), text: 'X1', multiplier: 1, player: undefined, clicked: false,
     },
     {
-        id: crypto.randomUUID(), text: 'X1', multiplier: 1, player: undefined
+        id: crypto.randomUUID(), text: 'X1', multiplier: 1, player: undefined, clicked: false,
     },
     {
-        id: crypto.randomUUID(), text: 'X2', multiplier: 2, player: undefined
+        id: crypto.randomUUID(), text: 'X2', multiplier: 2, player: undefined, clicked: false,
     },
     {
-        id: crypto.randomUUID(), text: 'X2', multiplier: 2, player: undefined
+        id: crypto.randomUUID(), text: 'X2', multiplier: 2, player: undefined, clicked: false,
     },
     {
-        id: crypto.randomUUID(), text: 'X2', multiplier: 2, player: undefined
+        id: crypto.randomUUID(), text: 'X2', multiplier: 2, player: undefined, clicked: false,
     },
     {
-        id: crypto.randomUUID(), text: 'X3', multiplier: 3, player: undefined
+        id: crypto.randomUUID(), text: 'X3', multiplier: 3, player: undefined, clicked: false,
     },
     {
-        id: crypto.randomUUID(), text: 'X3', multiplier: 3, player: undefined
+        id: crypto.randomUUID(), text: 'X3', multiplier: 3, player: undefined, clicked: false,
     },
     {
-        id: crypto.randomUUID(), text: 'X4', multiplier: 4, player: undefined
+        id: crypto.randomUUID(), text: 'X4', multiplier: 4, player: undefined, clicked: false,
     },
     {
-        id: crypto.randomUUID(), text: 'X4', multiplier: 4, player: undefined
+        id: crypto.randomUUID(), text: 'X4', multiplier: 4, player: undefined, clicked: false,
     },
     {
-        id: crypto.randomUUID(), text: 'X5', multiplier: 5, player: undefined
+        id: crypto.randomUUID(), text: 'X5', multiplier: 5, player: undefined, clicked: false,
     }];
 type MaxAttempts = { x1: number, x2: number, x3: number, x4: number, x5: number };
 const sixKTargetAttempts: MaxAttempts = {
@@ -258,7 +258,6 @@ function App() {
             });
             setSumOfGoals(acc);
             setGameFinished(true);
-            console.log(gameFinished);
             console.log(sumOfGoals);
         }
 
@@ -289,11 +288,22 @@ function App() {
         }
     }, [targetAmountOfGoals]);
 
+
+
+    function resetGame(layout: Slot[]) {
+        setCurrentSlots(layout);
+        setGameFinished(false);
+        setCurrentPlayer(getPlayer());
+        setSortedPlayers([]);
+        setSumOfGoals(0);
+    }
+
     return (
         <>
             <div className="select_target">
                 <select name="target" id="select_target" onChange={(e) => {
                     setTargetAmountOfGoals(e.target.value);
+                    setCurrentPlayer(getPlayer());
                 }}>
                     <option value="6000">6000</option>
                     <option value="9000">9000</option>
@@ -306,20 +316,36 @@ function App() {
                 <p>{currentPlayer?.name}</p>
             </div>
             <div className="slots">
+                {gameFinished && <button className="play_again_btn" onClick={() => {
+                    switch (currentSlots.length) {
+                        case 7:
+                            resetGame(sixKSlots);
+                            break;
+                        case 8:
+                            resetGame(nineKSlots);
+                            break;
+                        case 9:
+                            resetGame(tenKSlots)
+                            break;
+                        case 11:
+                            resetGame(twelveKSlots)
+                            break;
+                        default:
+                            break;
+                    }
+                }}>Play again</button>}
                 {currentSlots.map(slot => {
                     return (
                         <div className="slot_row">
-                            <button className="slot_btn" onClick={(e) => {
+                            <button className="slot_btn" disabled={slot.clicked} onClick={() => {
                                 setSortedPlayers(prev => {
                                     const aux = [...prev, currentPlayer];
                                     return aux;
                                 });
-                                console.log(sortedPlayers)
-                                e.currentTarget.disabled = true;
                                 setCurrentSlots(prev => {
                                     let aux = [...prev];
                                     const index = aux.findIndex(i => i.id === slot.id);
-                                    aux[index] = { ...aux[index], player: { ...currentPlayer, goals: currentPlayer.goals * slot.multiplier } }
+                                    aux[index] = { ...aux[index], player: { ...currentPlayer, goals: currentPlayer.goals * slot.multiplier }, clicked: true }
                                     return aux;
                                 });
                             }}>{slot.text}</button>
@@ -327,7 +353,7 @@ function App() {
                         </div>
                     )
                 })}
-                {sumOfGoals !== undefined && <p className="result">{sumOfGoals}</p>}
+                {(sumOfGoals !== undefined && sumOfGoals > 0) && <p className="result">{sumOfGoals}</p>}
             </div>
         </>
     )
