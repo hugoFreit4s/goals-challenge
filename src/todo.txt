@@ -1,9 +1,0 @@
-1. Fazer com que não apareça um player ao chegar ao último player do game.
-2. Separar os jogadores de acordo com o multiplicador (multiplicou os gols por 1? fica no 1. multiplicou por 2? fica no 2, etc...). <DONE!>
-3. Ordenar os slots por ordem (X1, X2, X3 e X4).
-
-//Duvidas
-1. Como resolver o erro da 'key' em uma lista.
-2. Problema com o ID dos jogadores (com crypto.randomUUID() o ID muda e atrapalha a lógica de mostrar os jogadores selecionados na tela).
-
-reduce

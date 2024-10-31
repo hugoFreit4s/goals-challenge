@@ -207,35 +207,6 @@ const twelveKSlots: Array<Slot> = [
     {
         id: crypto.randomUUID(), text: 'X5', multiplier: 5, player: undefined, clicked: false,
     }];
-type MaxAttempts = { x1: number, x2: number, x3: number, x4: number, x5: number };
-const sixKTargetAttempts: MaxAttempts = {
-    x1: 3,
-    x2: 2,
-    x3: 1,
-    x4: 1,
-    x5: 0
-}
-const nineKTargetAttempts: MaxAttempts = {
-    x1: 3,
-    x2: 2,
-    x3: 2,
-    x4: 1,
-    x5: 0
-}
-const tenKTargetAttempts: MaxAttempts = {
-    x1: 3,
-    x2: 2,
-    x3: 2,
-    x4: 1,
-    x5: 1
-}
-const twelveKTargetAttempts: MaxAttempts = {
-    x1: 3,
-    x2: 3,
-    x3: 2,
-    x4: 2,
-    x5: 1
-}
 
 function getPlayer(): Player {
     const index = Math.floor(Math.random() * playersArray.length);
