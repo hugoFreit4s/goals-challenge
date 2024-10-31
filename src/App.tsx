@@ -220,6 +220,18 @@ const initialHighScores: HighScores = {
     tenK: 0,
     twelveK: 0
 }
+type Wins = {
+    sixK: number,
+    nineK: number,
+    tenK: number,
+    twelveK: number
+}
+const initialWins: Wins = {
+    sixK: 0,
+    nineK: 0,
+    tenK: 0,
+    twelveK: 0
+}
 
 function getPlayer(): Player {
     const index = Math.floor(Math.random() * playersArray.length);
@@ -235,6 +247,8 @@ function App() {
     const [gameFinished, setGameFinished] = useState<boolean>(false);
     const [highScores, setHighScores] = useState<HighScores>(initialHighScores);
     const [currentHighScore, setCurrentHighscore] = useState<number>(initialHighScores.sixK);
+    const [wins, setWins] = useState<Wins>(initialWins);
+    const [currentWins, setCurrentWins] = useState<number>(initialWins.sixK);
 
     useEffect(() => {
         if (sortedPlayers.length === currentSlots.length) {
@@ -285,6 +299,13 @@ function App() {
                         return aux
                     });
                 }
+                if (sumOfGoals! > Number(targetAmountOfGoals)) {
+                    setWins(prev => {
+                        const aux = { ...prev };
+                        aux.sixK = aux.sixK + 1;
+                        return aux
+                    });
+                }
                 break;
             case 'ninek':
                 if (sumOfGoals! > highScores.nineK) {
@@ -294,6 +315,14 @@ function App() {
                         return aux
                     });
                 }
+                if (sumOfGoals! > Number(targetAmountOfGoals)) {
+                    setWins(prev => {
+                        const aux = { ...prev };
+                        aux.nineK = aux.nineK + 1;
+                        return aux
+                    });
+                }
+                break;
                 break;
             case 'tenk':
                 if (sumOfGoals! > highScores.tenK) {
@@ -303,6 +332,14 @@ function App() {
                         return aux
                     });
                 }
+                if (sumOfGoals! > Number(targetAmountOfGoals)) {
+                    setWins(prev => {
+                        const aux = { ...prev };
+                        aux.tenK = aux.tenK + 1;
+                        return aux
+                    });
+                }
+                break;
                 break;
             case 'twelvek':
                 if (sumOfGoals! > highScores.twelveK) {
@@ -312,6 +349,14 @@ function App() {
                         return aux
                     });
                 }
+                if (sumOfGoals! > Number(targetAmountOfGoals)) {
+                    setWins(prev => {
+                        const aux = { ...prev };
+                        aux.twelveK = aux.twelveK + 1;
+                        return aux
+                    });
+                }
+                break;
                 break;
             default:
                 break;
@@ -323,15 +368,19 @@ function App() {
         switch (currentLayout) {
             case 'sixk':
                 setCurrentHighscore(highScores.sixK);
+                setCurrentWins(wins.sixK);
                 break;
             case 'ninek':
                 setCurrentHighscore(highScores.nineK);
+                setCurrentWins(wins.nineK);
                 break;
             case 'tenk':
                 setCurrentHighscore(highScores.tenK);
+                setCurrentWins(wins.tenK);
                 break;
             case 'twelvek':
                 setCurrentHighscore(highScores.twelveK);
+                setCurrentWins(wins.twelveK);
                 break;
             default:
                 break;
@@ -436,6 +485,7 @@ function App() {
                 })}
                 {(sumOfGoals !== undefined && sumOfGoals > 0) && <p className="result_txt">{sumOfGoals}</p>}
                 <p className="high_score_txt">{`Current level highscore: ${currentHighScore}`}</p>
+                <p className="wins_txt">{`Wins at this level: ${currentWins}`}</p>
             </div>
         </>
     )
