@@ -120,6 +120,93 @@ const sixKSlots: Array<Slot> = [
     {
         id: crypto.randomUUID(), text: 'X4', multiplier: 4, player: undefined
     }];
+const nineKSlots: Array<Slot> = [
+    {
+        id: crypto.randomUUID(), text: 'X1', multiplier: 1, player: undefined
+    },
+    {
+        id: crypto.randomUUID(), text: 'X1', multiplier: 1, player: undefined
+    },
+    {
+        id: crypto.randomUUID(), text: 'X1', multiplier: 1, player: undefined
+    },
+    {
+        id: crypto.randomUUID(), text: 'X2', multiplier: 2, player: undefined
+    },
+    {
+        id: crypto.randomUUID(), text: 'X2', multiplier: 2, player: undefined
+    },
+    {
+        id: crypto.randomUUID(), text: 'X3', multiplier: 3, player: undefined
+    },
+    {
+        id: crypto.randomUUID(), text: 'X3', multiplier: 3, player: undefined
+    },
+    {
+        id: crypto.randomUUID(), text: 'X4', multiplier: 4, player: undefined
+    }];
+const tenKSlots: Array<Slot> = [
+    {
+        id: crypto.randomUUID(), text: 'X1', multiplier: 1, player: undefined
+    },
+    {
+        id: crypto.randomUUID(), text: 'X1', multiplier: 1, player: undefined
+    },
+    {
+        id: crypto.randomUUID(), text: 'X1', multiplier: 1, player: undefined
+    },
+    {
+        id: crypto.randomUUID(), text: 'X2', multiplier: 2, player: undefined
+    },
+    {
+        id: crypto.randomUUID(), text: 'X2', multiplier: 2, player: undefined
+    },
+    {
+        id: crypto.randomUUID(), text: 'X3', multiplier: 3, player: undefined
+    },
+    {
+        id: crypto.randomUUID(), text: 'X3', multiplier: 3, player: undefined
+    },
+    {
+        id: crypto.randomUUID(), text: 'X4', multiplier: 4, player: undefined
+    },
+    {
+        id: crypto.randomUUID(), text: 'X5', multiplier: 5, player: undefined
+    }];
+const twelveKSlots: Array<Slot> = [
+    {
+        id: crypto.randomUUID(), text: 'X1', multiplier: 1, player: undefined
+    },
+    {
+        id: crypto.randomUUID(), text: 'X1', multiplier: 1, player: undefined
+    },
+    {
+        id: crypto.randomUUID(), text: 'X1', multiplier: 1, player: undefined
+    },
+    {
+        id: crypto.randomUUID(), text: 'X2', multiplier: 2, player: undefined
+    },
+    {
+        id: crypto.randomUUID(), text: 'X2', multiplier: 2, player: undefined
+    },
+    {
+        id: crypto.randomUUID(), text: 'X2', multiplier: 2, player: undefined
+    },
+    {
+        id: crypto.randomUUID(), text: 'X3', multiplier: 3, player: undefined
+    },
+    {
+        id: crypto.randomUUID(), text: 'X3', multiplier: 3, player: undefined
+    },
+    {
+        id: crypto.randomUUID(), text: 'X4', multiplier: 4, player: undefined
+    },
+    {
+        id: crypto.randomUUID(), text: 'X4', multiplier: 4, player: undefined
+    },
+    {
+        id: crypto.randomUUID(), text: 'X5', multiplier: 5, player: undefined
+    }];
 type MaxAttempts = { x1: number, x2: number, x3: number, x4: number, x5: number };
 const sixKTargetAttempts: MaxAttempts = {
     x1: 3,
@@ -131,23 +218,23 @@ const sixKTargetAttempts: MaxAttempts = {
 const nineKTargetAttempts: MaxAttempts = {
     x1: 3,
     x2: 2,
-    x3: 1,
+    x3: 2,
     x4: 1,
     x5: 0
 }
 const tenKTargetAttempts: MaxAttempts = {
     x1: 3,
     x2: 2,
-    x3: 1,
+    x3: 2,
     x4: 1,
-    x5: 0
+    x5: 1
 }
 const twelveKTargetAttempts: MaxAttempts = {
     x1: 3,
-    x2: 2,
-    x3: 1,
-    x4: 1,
-    x5: 0
+    x2: 3,
+    x3: 2,
+    x4: 2,
+    x5: 1
 }
 
 function getPlayer(): Player {
@@ -156,44 +243,83 @@ function getPlayer(): Player {
 }
 
 function App() {
-    const [sortedPlayersList, setSortedPlayersList] = useState<Array<Player>>([]);
     const [currentSlots, setCurrentSlots] = useState<Array<Slot>>(sixKSlots);
     const [currentPlayer, setCurrentPlayer] = useState<Player>(getPlayer());
+    const [sumOfGoals, setSumOfGoals] = useState<number>();
+    const [sortedPlayers, setSortedPlayers] = useState<Array<Player>>([]);
+    const [targetAmountOfGoals, setTargetAmountOfGoals] = useState<string>("6000");
 
     useEffect(() => {
-        if (currentPlayer) {
-            setSortedPlayersList(prev => {
-                const aux = [...prev, currentPlayer];
-                return aux;
+        if (currentSlots.length === 7 && sortedPlayers.length >= 7) {
+            let acc = 0;
+            currentSlots.map(slot => {
+                acc += slot.player!.goals;
             });
+            setSumOfGoals(acc);
+            console.log(sumOfGoals);
         }
-        console.log(sortedPlayersList);
-    }, [currentPlayer]);
+
+    }, [sortedPlayers]);
+
+    useEffect(() => {
+        switch (targetAmountOfGoals) {
+            case "6000":
+                setCurrentSlots(sixKSlots);
+                break;
+            case "9000":
+                setCurrentSlots(nineKSlots);
+                break;
+            case "10000":
+                setCurrentSlots(tenKSlots);
+                break;
+            case "12000":
+                setCurrentSlots(twelveKSlots);
+                break;
+            default:
+                break;
+        }
+    }, [targetAmountOfGoals])
 
     return (
         <>
+            <div className="select_target">
+                <select name="target" id="select_target" onChange={(e) => {
+                    setTargetAmountOfGoals(e.target.value);
+                }}>
+                    <option value="6000">6000</option>
+                    <option value="9000">9000</option>
+                    <option value="10000">10000</option>
+                    <option value="12000">12000</option>
+                </select>
+            </div>
             <div className="current_player_data">
                 <img src={currentPlayer?.imageURL} alt="" className="player_image" />
                 <p>{currentPlayer?.name}</p>
-                <div className="slots">
-                    {currentSlots.map(slot => {
-                        return (
-                            <div className="slot_row">
-                                <button className="slot_btn" onClick={(e) => {
-                                    e.currentTarget.disabled = true;
-                                    setCurrentSlots(prev => {
-                                        let aux = [...prev];
-                                        const index = aux.findIndex(i => i.id === slot.id);
-                                        aux[index] = { ...aux[index], player: { ...currentPlayer, goals: currentPlayer.goals * slot.multiplier } }
-                                        return aux;
-                                    });
-                                    setCurrentPlayer(getPlayer());
-                                }}>{slot.text}</button>
-                                <p>{slot.text}: {slot.player !== undefined ? `${slot.player.name} -` : ''} {slot.player !== undefined ? `(${slot.player.goals})` : ''}</p>
-                            </div>
-                        )
-                    })}
-                </div>
+            </div>
+            <div className="slots">
+                {currentSlots.map(slot => {
+                    return (
+                        <div className="slot_row">
+                            <button className="slot_btn" onClick={(e) => {
+                                setSortedPlayers(prev => {
+                                    const aux = [...prev, currentPlayer];
+                                    return aux;
+                                });
+                                console.log(sortedPlayers)
+                                e.currentTarget.disabled = true;
+                                setCurrentSlots(prev => {
+                                    let aux = [...prev];
+                                    const index = aux.findIndex(i => i.id === slot.id);
+                                    aux[index] = { ...aux[index], player: { ...currentPlayer, goals: currentPlayer.goals * slot.multiplier } }
+                                    return aux;
+                                });
+                                setCurrentPlayer(getPlayer());
+                            }}>{slot.text}</button>
+                            <p>{slot.text}: {slot.player !== undefined ? `${slot.player.name} -` : ''} {slot.player !== undefined ? `(${slot.player.goals})` : ''}</p>
+                        </div>
+                    )
+                })}
+                {sumOfGoals !== undefined && <p className="result">{sumOfGoals}</p>}
             </div>
         </>
     )
