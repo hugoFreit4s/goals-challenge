@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { renderToReadableStream } from "react-dom/server";
 
 
 const playersArray: Array<Player> = [
@@ -207,6 +208,18 @@ const twelveKSlots: Array<Slot> = [
     {
         id: crypto.randomUUID(), text: 'X5', multiplier: 5, player: undefined, clicked: false,
     }];
+type HighScores = {
+    sixK: number,
+    nineK: number,
+    tenK: number,
+    twelveK: number
+}
+const initialHighScores: HighScores = {
+    sixK: 0,
+    nineK: 0,
+    tenK: 0,
+    twelveK: 0
+}
 
 function getPlayer(): Player {
     const index = Math.floor(Math.random() * playersArray.length);
@@ -220,6 +233,8 @@ function App() {
     const [sortedPlayers, setSortedPlayers] = useState<Array<Player>>([]);
     const [targetAmountOfGoals, setTargetAmountOfGoals] = useState<string>("6000");
     const [gameFinished, setGameFinished] = useState<boolean>(false);
+    const [highScores, setHighScores] = useState<HighScores>(initialHighScores);
+    const [currentHighScore, setCurrentHighscore] = useState<number>(initialHighScores.sixK);
 
     useEffect(() => {
         if (sortedPlayers.length === currentSlots.length) {
@@ -229,7 +244,6 @@ function App() {
             });
             setSumOfGoals(acc);
             setGameFinished(true);
-            console.log(sumOfGoals);
         }
 
         if (sortedPlayers.length !== currentSlots.length) {
@@ -259,7 +273,70 @@ function App() {
         }
     }, [targetAmountOfGoals]);
 
+    useEffect(() => {
+        const currentLayout = getCurrentLayout();
 
+        switch (currentLayout) {
+            case 'sixk':
+                if (sumOfGoals! > highScores.sixK) {
+                    setHighScores(prev => {
+                        const aux = { ...prev };
+                        aux.sixK = sumOfGoals!;
+                        return aux
+                    });
+                }
+                break;
+            case 'ninek':
+                if (sumOfGoals! > highScores.nineK) {
+                    setHighScores(prev => {
+                        const aux = { ...prev };
+                        aux.nineK = sumOfGoals!;
+                        return aux
+                    });
+                }
+                break;
+            case 'tenk':
+                if (sumOfGoals! > highScores.tenK) {
+                    setHighScores(prev => {
+                        const aux = { ...prev };
+                        aux.tenK = sumOfGoals!;
+                        return aux
+                    });
+                }
+                break;
+            case 'twelvek':
+                if (sumOfGoals! > highScores.twelveK) {
+                    setHighScores(prev => {
+                        const aux = { ...prev };
+                        aux.twelveK = sumOfGoals!;
+                        return aux
+                    });
+                }
+                break;
+            default:
+                break;
+        }
+    }, [sumOfGoals]);
+
+    useEffect(() => {
+        const currentLayout = getCurrentLayout();
+        switch (currentLayout) {
+            case 'sixk':
+                setCurrentHighscore(highScores.sixK);
+                break;
+            case 'ninek':
+                setCurrentHighscore(highScores.nineK);
+                break;
+            case 'tenk':
+                setCurrentHighscore(highScores.tenK);
+                break;
+            case 'twelvek':
+                setCurrentHighscore(highScores.twelveK);
+                break;
+            default:
+                break;
+        }
+    })
 
     function resetGame(layout: Slot[]) {
         setCurrentSlots(layout);
@@ -269,12 +346,44 @@ function App() {
         setSumOfGoals(0);
     }
 
+    function getCurrentLayout() {
+        if (currentSlots.length === 7) {
+            return 'sixk';
+        } else if (currentSlots.length === 8) {
+            return 'ninek';
+        } else if (currentSlots.length === 9) {
+            return 'tenk';
+        } else {
+            return 'twelvek';
+        }
+    }
+
     return (
         <>
             <div className="select_target">
                 <select name="target" id="select_target" onChange={(e) => {
                     setTargetAmountOfGoals(e.target.value);
                     setCurrentPlayer(getPlayer());
+                    switch (e.target.value) {
+                        case "6000":
+                            setCurrentHighscore(highScores.sixK);
+                            resetGame(sixKSlots);
+                            break;
+                        case "9000":
+                            setCurrentHighscore(highScores.nineK);
+                            resetGame(nineKSlots);
+                            break;
+                        case "10000":
+                            setCurrentHighscore(highScores.tenK);
+                            resetGame(tenKSlots);
+                            break;
+                        case "12000":
+                            setCurrentHighscore(highScores.twelveK);
+                            resetGame(twelveKSlots);
+                            break;
+                        default:
+                            break;
+                    }
                 }}>
                     <option value="6000">6000</option>
                     <option value="9000">9000</option>
@@ -288,17 +397,18 @@ function App() {
             </div>
             <div className="slots">
                 {gameFinished && <button className="play_again_btn" onClick={() => {
-                    switch (currentSlots.length) {
-                        case 7:
+                    const currentLayout = getCurrentLayout();
+                    switch (currentLayout) {
+                        case 'sixk':
                             resetGame(sixKSlots);
                             break;
-                        case 8:
+                        case 'ninek':
                             resetGame(nineKSlots);
                             break;
-                        case 9:
+                        case 'tenk':
                             resetGame(tenKSlots)
                             break;
-                        case 11:
+                        case 'twelvek':
                             resetGame(twelveKSlots)
                             break;
                         default:
@@ -324,7 +434,8 @@ function App() {
                         </div>
                     )
                 })}
-                {(sumOfGoals !== undefined && sumOfGoals > 0) && <p className="result">{sumOfGoals}</p>}
+                {(sumOfGoals !== undefined && sumOfGoals > 0) && <p className="result_txt">{sumOfGoals}</p>}
+                <p className="high_score_txt">{`Current level highscore: ${currentHighScore}`}</p>
             </div>
         </>
     )
