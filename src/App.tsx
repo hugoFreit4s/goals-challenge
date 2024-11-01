@@ -136,6 +136,9 @@ const nineKSlots: Array<Slot> = [
         id: crypto.randomUUID(), text: 'X2', multiplier: 2, player: undefined, clicked: false,
     },
     {
+        id: crypto.randomUUID(), text: 'X2', multiplier: 2, player: undefined, clicked: false,
+    },
+    {
         id: crypto.randomUUID(), text: 'X3', multiplier: 3, player: undefined, clicked: false,
     },
     {
@@ -145,9 +148,6 @@ const nineKSlots: Array<Slot> = [
         id: crypto.randomUUID(), text: 'X4', multiplier: 4, player: undefined, clicked: false,
     }];
 const tenKSlots: Array<Slot> = [
-    {
-        id: crypto.randomUUID(), text: 'X1', multiplier: 1, player: undefined, clicked: false,
-    },
     {
         id: crypto.randomUUID(), text: 'X1', multiplier: 1, player: undefined, clicked: false,
     },
@@ -332,7 +332,6 @@ function App() {
                     });
                 }
                 break;
-                break;
             case 'tenk':
                 if (sumOfGoals! > highScores.tenK) {
                     setHighScores(prev => {
@@ -349,7 +348,6 @@ function App() {
                     });
                 }
                 break;
-                break;
             case 'twelvek':
                 if (sumOfGoals! > highScores.twelveK) {
                     setHighScores(prev => {
@@ -365,7 +363,6 @@ function App() {
                         return aux
                     });
                 }
-                break;
                 break;
             default:
                 break;
@@ -407,9 +404,9 @@ function App() {
     function getCurrentLayout() {
         if (currentSlots.length === 7) {
             return 'sixk';
-        } else if (currentSlots.length === 8) {
-            return 'ninek';
         } else if (currentSlots.length === 9) {
+            return 'ninek';
+        } else if (currentSlots.length === 8) {
             return 'tenk';
         } else {
             return 'twelvek';

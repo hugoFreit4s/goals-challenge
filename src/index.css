@@ -37,6 +37,10 @@ main {
     align-items: center;
 }
 
+.slot_btn{
+    cursor: pointer;
+}
+
 .play_again_btn {
     text-align: center;
     align-self: center;
