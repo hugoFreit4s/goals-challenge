@@ -1,6 +1,4 @@
 import { useEffect, useState } from "react";
-import { renderToReadableStream } from "react-dom/server";
-
 
 const playersArray: Array<Player> = [
     { id: crypto.randomUUID(), name: 'Cristiano Ronaldo', goals: 906, imageURL: '' },
@@ -249,6 +247,7 @@ function App() {
     const [currentHighScore, setCurrentHighscore] = useState<number>(initialHighScores.sixK);
     const [wins, setWins] = useState<Wins>(initialWins);
     const [currentWins, setCurrentWins] = useState<number>(initialWins.sixK);
+    const [resultMessage, setResultMessage] = useState<string>();
 
     useEffect(() => {
         if (sortedPlayers.length === currentSlots.length) {
@@ -289,6 +288,7 @@ function App() {
 
     useEffect(() => {
         const currentLayout = getCurrentLayout();
+        setResultMessage(sumOfGoals! > Number(targetAmountOfGoals) ? `You won! Your score: ${sumOfGoals}/${targetAmountOfGoals}` : `You lose! Your score: ${sumOfGoals}/${targetAmountOfGoals}`);
 
         switch (currentLayout) {
             case 'sixk':
@@ -408,7 +408,7 @@ function App() {
     }
 
     return (
-        <>
+        <main>
             <div className="select_target">
                 <select name="target" id="select_target" onChange={(e) => {
                     setTargetAmountOfGoals(e.target.value);
@@ -442,28 +442,30 @@ function App() {
             </div>
             <div className="current_player_data">
                 <img src={currentPlayer?.imageURL} alt="" className="player_image" />
-                <p>{currentPlayer?.name}</p>
+                <p className="player_name">{currentPlayer?.name}</p>
             </div>
             <div className="slots">
-                {gameFinished && <button className="play_again_btn" onClick={() => {
-                    const currentLayout = getCurrentLayout();
-                    switch (currentLayout) {
-                        case 'sixk':
-                            resetGame(sixKSlots);
-                            break;
-                        case 'ninek':
-                            resetGame(nineKSlots);
-                            break;
-                        case 'tenk':
-                            resetGame(tenKSlots)
-                            break;
-                        case 'twelvek':
-                            resetGame(twelveKSlots)
-                            break;
-                        default:
-                            break;
-                    }
-                }}>Play again</button>}
+                <div className="play_again_btn_div">
+                    {gameFinished && <button className="play_again_btn" onClick={() => {
+                        const currentLayout = getCurrentLayout();
+                        switch (currentLayout) {
+                            case 'sixk':
+                                resetGame(sixKSlots);
+                                break;
+                            case 'ninek':
+                                resetGame(nineKSlots);
+                                break;
+                            case 'tenk':
+                                resetGame(tenKSlots)
+                                break;
+                            case 'twelvek':
+                                resetGame(twelveKSlots)
+                                break;
+                            default:
+                                break;
+                        }
+                    }}>Play again</button>}
+                </div>
                 {currentSlots.map(slot => {
                     return (
                         <div className="slot_row">
@@ -483,11 +485,13 @@ function App() {
                         </div>
                     )
                 })}
-                {(sumOfGoals !== undefined && sumOfGoals > 0) && <p className="result_txt">{sumOfGoals}</p>}
+            </div>
+            <div className="messages">
+                {(sumOfGoals !== undefined && sumOfGoals > 0) && <p className="result_txt">{resultMessage}</p>}
                 <p className="high_score_txt">{`Current level highscore: ${currentHighScore}`}</p>
                 <p className="wins_txt">{`Wins at this level: ${currentWins}`}</p>
             </div>
-        </>
+        </main>
     )
 }
 
