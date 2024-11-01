@@ -248,6 +248,7 @@ function App() {
     const [wins, setWins] = useState<Wins>(initialWins);
     const [currentWins, setCurrentWins] = useState<number>(initialWins.sixK);
     const [resultMessage, setResultMessage] = useState<string>();
+    const [sortingPlayer, setSortingPlayer] = useState<boolean>(false);
 
     useEffect(() => {
         if (sortedPlayers.length === currentSlots.length) {
@@ -260,7 +261,15 @@ function App() {
         }
 
         if (sortedPlayers.length !== currentSlots.length) {
-            setCurrentPlayer(getPlayer());
+            setSortingPlayer(true);
+            for (let i = 0; i < 1000; i++) {
+                setTimeout(() => {
+                    setCurrentPlayer(getPlayer());
+                }, 300);
+            }
+            setTimeout(() => {
+                setSortingPlayer(false);
+            }, 700);
         } else {
             setCurrentPlayer({ name: '', goals: 0, imageURL: '', id: 'none' })
         }
@@ -469,7 +478,7 @@ function App() {
                 {currentSlots.map(slot => {
                     return (
                         <div className="slot_row">
-                            <button className="slot_btn" disabled={slot.clicked} onClick={() => {
+                            <button className="slot_btn" disabled={sortingPlayer ? true : false || slot.clicked ? true : false} onClick={(e) => {
                                 setSortedPlayers(prev => {
                                     const aux = [...prev, currentPlayer];
                                     return aux;
